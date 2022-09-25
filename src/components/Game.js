@@ -1,6 +1,5 @@
 import React from "react";
-
-import Environment from "./Environment";
+import traits from "../data/traits.json"
 
 // function Game() {
 //     const [page, setPage] = useState(0);
@@ -17,8 +16,31 @@ import Environment from "./Environment";
 
 //     return <div><Page goToNext={() => setPage(page + 1)} /></div>;
 // }
+class Traits {
+    constructor(legs, size, neck, hair, camo) {
+        this.legs = legs;
+        this.size = size;
+        this.neck = neck;
+        this.hair = hair;
+        this.camo = camo;
+    }
+};
 
-let population = [Environment.createRandomOffspring(), Environment.createRandomOffspring(), Environment.createRandomOffspring()];
+function createRandomOffspring() {
+    return new Traits(
+        randomElement(traits.LEGS),
+        randomElement(traits.SIZE),
+        randomElement(traits.NECK),
+        randomElement(traits.HAIR),
+        randomElement(traits.CAMO)
+    );
+};
+
+function randomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+};
+
+let population = [createRandomOffspring(), createRandomOffspring(), createRandomOffspring()];
 
 // function firstRound() {
 //     for (i = 0; i < 5; i++) {
@@ -85,7 +107,7 @@ let population = [Environment.createRandomOffspring(), Environment.createRandomO
 const Game = () => {
     return (
         <section>
-           <h1>Current Population: {population}</h1>
+           <h1>Current Population: {population.map((creature, index) => <p key={index}>creature</p>)}</h1>
         </section>
     )
 }

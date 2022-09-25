@@ -1,0 +1,7 @@
+{
+    "LEGS": ["SHORT_LEGS", "MEDIUM_LEGS", "LONG_LEGS"],
+    "SIZE": ["THIN", "MEDIUM", "BULKY"],
+    "NECK": ["SHORT_NECK", "MEDIUM_NECK", "LONG_NECK"],
+    "HAIR": ["NO_HAIR", "SHORT_HAIR", "MEDIUM_HAIR", "LONG_HAIR"],
+    "CAMO": ["STRIPES", "NO_STRIPES"]
+}
