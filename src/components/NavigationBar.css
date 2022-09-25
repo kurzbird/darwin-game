@@ -1,0 +1,12 @@
+.nav-bar {
+    background-color: #282c34;
+    max-height: 100p;
+    display: flex;
+    justify-content: space-around;
+    font-size: 16pt;
+    color: white;
+}
+
+button {
+    display: flex;
+}
