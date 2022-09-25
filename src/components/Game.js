@@ -1,5 +1,6 @@
 import React from "react";
-import traits from "../data/traits.json"
+import traits from "../data/traits.json";
+import survivalChance from "../data/survivalChance.json";
 
 // function Game() {
 //     const [page, setPage] = useState(0);
@@ -42,72 +43,76 @@ function randomElement(array) {
 
 let population = [createRandomOffspring(), createRandomOffspring(), createRandomOffspring()];
 
-// function firstRound() {
-//     for (i = 0; i < 5; i++) {
-//         reproductionRound();
-//     }
-//     survivalRound();
-//     console.log(population.length);
+function firstRound() {
+    for (let i = 0; i < 5; i++) {
+        reproductionRound();
+    }
+    survivalRound();
+    console.log(population.length);
 
-//     return population;
-// }
+    return population;
+}
 
-// function reproductionRound() {
-//     const reproductionRate = population.length / 2;
-//     for (let i = 1; i <= reproductionRate; i++) {
-//         population.push(singleOffspring(randomElement(population), randomElement(population)));
-//     }
-//     return population;
-// }
+function reproductionRound() {
+    const reproductionRate = population.length / 2;
+    for (let i = 1; i <= reproductionRate; i++) {
+        population.push(singleOffspring(randomElement(population), randomElement(population)));
+    }
+    return population;
+}
 
-// // defaults to lower index instead of 50/50
-// function singleOffspring(animal_1, animal_2) {
-//     return new Traits(
-//         LEGS[Math.floor((LEGS.indexOf(animal_1.legs) + LEGS.indexOf(animal_2.legs)) / 2)],
-//         SIZE[Math.floor((SIZE.indexOf(animal_1.size) + SIZE.indexOf(animal_2.size)) / 2)],
-//         NECK[Math.floor((NECK.indexOf(animal_1.neck) + NECK.indexOf(animal_2.neck)) / 2)],
-//         HAIR[Math.floor((HAIR.indexOf(animal_1.hair) + HAIR.indexOf(animal_2.hair)) / 2)],
-//         CAMO[Math.floor((CAMO.indexOf(animal_1.camo) + CAMO.indexOf(animal_2.camo)) / 2)]
-//     );
-// }
-// // should return population with changes
-// // references surivival test
-// function survivalRound() {
-//     const catastrophe = randomElement(CATASTROPHES);
-//     for (let i = 0; i < population.length; i++) {
-//         if (survivalTest(population[i], SURVIVAL_CHANCE[catastrophe]) == false) {
-//             population.splice(i, 1);
-//         }
-//     }
+// defaults to lower index instead of 50/50
+function singleOffspring(animal_1, animal_2) {
+    return new Traits(
+        traits.LEGS[Math.floor((traits.LEGS.indexOf(animal_1.legs) + traits.LEGS.indexOf(animal_2.legs)) / 2)],
+        traits.SIZE[Math.floor((traits.SIZE.indexOf(animal_1.size) + traits.SIZE.indexOf(animal_2.size)) / 2)],
+        traits.NECK[Math.floor((traits.NECK.indexOf(animal_1.neck) + traits.NECK.indexOf(animal_2.neck)) / 2)],
+        traits.HAIR[Math.floor((traits.HAIR.indexOf(animal_1.hair) + traits.HAIR.indexOf(animal_2.hair)) / 2)],
+        traits.CAMO[Math.floor((traits.CAMO.indexOf(animal_1.camo) + traits.CAMO.indexOf(animal_2.camo)) / 2)]
+    );
+}
+// should return population with changes
+// references surivival test
+function survivalRound() {
+    const CATASTROPHES = ["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "VIRUS", "VOLCANO"]
+    const catastrophe = randomElement(CATASTROPHES);
+    for (let i = 0; i < population.length; i++) {
+        if (survivalTest(population[i], survivalChance[catastrophe]) === false) {
+            population.splice(i, 1);
+        }
+    }
 
-//     return population
-// }
+    return population
+}
 
-// // bool on whether or not animal lives
-// // references survival chance
-// function survivalTest(animal, catastropheEvent) {
-//     let survivalChance = 0;
+// bool on whether or not animal lives
+// references survival chance
+function survivalTest(animal, catastropheEvent) {
+    let chance = 0;
 
-//     for (const trait in animal) {
-//         if (catastropheEvent.hasOwnProperty(trait)) {
-//             survivalChance += catastropheEvent[trait][animal[trait]];
-//         }
-//     }
+    for (const trait in animal) {
+        if (catastropheEvent.hasOwnProperty(trait)) {
+            chance += catastropheEvent[trait][animal[trait]];
+        }
+    }
 
-//     // random integer between 1 to 100
-//     const rndInteger = Math.floor(Math.random() * 100) + 1;
-//     if (survivalChance >= rndInteger) {
-//         return true
-//     }
-//     else {
-//         return false
-//     }
-// }
+    // random integer between 1 to 100
+    const rndInteger = Math.floor(Math.random() * 100) + 1;
+    if (chance >= rndInteger) {
+        return true
+    }
+    else {
+        return false
+    }
+}
 
 const Game = () => {
     return (
         <section>
-           <h1>Current Population: {population.map((creature, index) => <p key={index}>creature</p>)}</h1>
+            <h1>Current Population: {population.map((creature, index) => <p key={index}>creature</p>)}</h1>
+            <button onClick={firstRound}>First Round</button>
+            <button onClick={reproductionRound}>Reproduction Round</button>
+            <button onClick={survivalRound}>Survival Round</button>
         </section>
     )
 }
