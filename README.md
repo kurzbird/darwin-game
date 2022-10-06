@@ -24,22 +24,35 @@
     - Pick 2 random types and mix to breed a third one
     - Reproduction rate = 1.5x
 
-- Add environmental events - 90% max chance of survival
-    - Cold
-        - Legs: short 80% chance of living
-        - Size: bulky 80% chance of living
-        - Hair: furry 80% chance of living
-    - Volcano
-        - Legs: short
-        - Size: thin
-    - Virus
-        - Needs diversity
-    - Predator
-        - Legs: long
-        - Camo: stripes
-    - Tall plants w/ fruits
-    - Global warming
+- Add environmental events - 80% max chance of survival
+    - Cold (80% max)
+        - Legs: short 20% chance of living
+        - Size: bulky 20% chance of living
+        - Hair: furry 20% chance of living
+        - Neck: short 20% chance of living
+    - Hot (80%)
+        - Legs: long 20% chance of living
+        - Size: thin 20% chance of living
+        - Hair: no hair 20% chance of living
+        - Neck: long 20% chance of living
+    - Volcano (60% max)
+        - Legs: short 20% chance of living
+        - Size: thin 20% chance of living
+        - Neck: short 20% chance of living
+    - Virus (60% max)
+        - Legs: short 20% chance of living
+        - Size: thin 20% chance of living
+        - Neck: long 20% chance of living
+    - Predator (80% max)
+        - Legs: long 30% chance of living
+        - Size: thin 20% chance of living
+        - Camo: stripes 30% chance of living
+    - Tall plants w/ fruits (80%)
+        - Legs: long 40% chance of living
+        - Neck: long 40% chance of living
 
 - One filtering round
     - Use environmental event to filter population
     - Should be used multiple times (population changes as it goes)
+
+- Generation = one reproduction round + one survival round
