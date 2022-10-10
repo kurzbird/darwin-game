@@ -4,7 +4,7 @@
 # To-Do:
 - Intro: Darwin Landing Page        Static page with 2 buttons
 - Learn about NS                    Static header + 3 part explainer
--
+- Art for creatures
 
 
 # Game:

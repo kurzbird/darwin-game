@@ -1,22 +1,12 @@
-import { useState } from "react";
-import createRandomOffspring from "./Game";
-
-function MutationDisplay() {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const openDisplay = () => {
-        if (isOpen === false) {
-            setIsOpen(true)
-            console.log([{createRandomOffspring}])
-        } else {
-            setIsOpen(false);
-        }
-    }
+function MutationDisplay({genePool}) {
 
     return (
-        <section>
-            <button onClick={openDisplay}>Mutation Display</button>
-        </section>
+        <div>
+            <h3>Mutation Display</h3>
+            <div className="random-mutations">
+                {genePool.map((Mutation, i) => <p key={i}>Mutation {i+1}: {Mutation.legs}, {Mutation.size}, {Mutation.neck}, {Mutation.hair}, {Mutation.camo}</p>)}
+            </div>
+        </div>
     )
 }
 

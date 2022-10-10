@@ -34,6 +34,7 @@ class Traits {
 
 // TO-DO: change this to user selection from MutationDisplay + double it
 let population = [createRandomOffspring(), createRandomOffspring(), createRandomOffspring()];
+const randomMutations = [createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring()];
 
 function createRandomOffspring() {
     return new Traits(
@@ -51,6 +52,40 @@ function randomElement(array) {
 
 const Game = () => {
     const [popCount, setPopCount] = useState(3);
+    const [currentRound, setCurrentRound] = useState(1);
+    const [lifelines, setLifelines] = useState(2);
+    const [showMutationDisplay, setShowMutationDisplay] = useState(false);
+
+    const openDisplay = () => {
+        setShowMutationDisplay(!showMutationDisplay)
+    }
+
+    const playGame = () => {
+        if (currentRound === 1) {
+            firstRound();
+            setCurrentRound(2);
+        }
+
+        if (currentRound === 2) {
+            reproductionRound();
+            survivalRound();
+            setCurrentRound(3);
+        }
+
+        if (currentRound === 3) {
+            reproductionRound();
+            survivalRound();
+            setCurrentRound(4);
+        }
+
+        if (currentRound === 4) {
+            reproductionRound();
+            survivalRound();
+            console.log("you win!");
+        }
+
+    }
+
 
     // Ensures larger starting population before catastrophes
     function firstRound() {
@@ -90,6 +125,7 @@ const Game = () => {
     function survivalRound() {
         const CATASTROPHES = ["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "VIRUS", "VOLCANO"]
         const catastrophe = randomElement(CATASTROPHES);
+        console.log(catastrophe);
         for (let i = 0; i < population.length; i++) {
             if (survivalTest(population[i], survivalChance[catastrophe]) === false) {
                 population.splice(i, 1);
@@ -123,11 +159,16 @@ const Game = () => {
 
     return (
         <section>
-            <h1>Current Population: {popCount}</h1>
+            <h1>Who Wants to Live a Million Years?</h1>
+            <h2>Current Population: {popCount}</h2>
             <button onClick={firstRound}>First Round</button>
             <button onClick={reproductionRound}>Reproduction Round</button>
             <button onClick={survivalRound}>Survival Round</button>
-            <MutationDisplay></MutationDisplay>
+            <button onClick={playGame}>Play Game</button>
+            <button onClick={openDisplay}>Show Mutation Display</button>
+            <div>
+                {showMutationDisplay && <MutationDisplay genePool={randomMutations}></MutationDisplay>}
+            </div>
         </section>
     )
 }
