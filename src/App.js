@@ -12,9 +12,9 @@ function App() {
         </header>
       </div>
 
-      <body>
+      <div>
         <Game></Game>
-      </body>
+      </div>
 
       <div className="footer">
         <Footer></Footer>
