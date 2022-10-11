@@ -53,6 +53,8 @@ function randomElement(array) {
 const Game = () => {
     const [popCount, setPopCount] = useState(3);
     const [currentRound, setCurrentRound] = useState(1);
+    const [years, setYears] = useState(1);
+    const [catastrophe, setCatastrophe] = useState("")
     const [lifelines, setLifelines] = useState(2);
     const [showMutationDisplay, setShowMutationDisplay] = useState(false);
 
@@ -69,18 +71,28 @@ const Game = () => {
         if (currentRound === 2) {
             reproductionRound();
             survivalRound();
+            setYears(138888);
             setCurrentRound(3);
         }
 
         if (currentRound === 3) {
             reproductionRound();
             survivalRound();
+            setYears(416666);
             setCurrentRound(4);
         }
 
         if (currentRound === 4) {
             reproductionRound();
             survivalRound();
+            setYears(694444);
+            setCurrentRound(5);
+        }
+
+        if (currentRound === 5) {
+            reproductionRound();
+            survivalRound();
+            setYears(1000000);
             console.log("you win!");
         }
 
@@ -89,7 +101,7 @@ const Game = () => {
 
     // Ensures larger starting population before catastrophes
     function firstRound() {
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 3; i++) {
             reproductionRound();
         }
         survivalRound();
@@ -132,6 +144,7 @@ const Game = () => {
             }
         }
         setPopCount(population.length);
+        setCatastrophe(catastrophe);
 
         return population
     }
@@ -160,7 +173,9 @@ const Game = () => {
     return (
         <section>
             <h1>Who Wants to Live a Million Years?</h1>
-            <h2>Current Population: {popCount}</h2>
+            <h3>Current Population: {popCount}</h3>
+            <h3>Year: {years}</h3>
+            <h3>Catastrophic Event: {catastrophe}</h3>
             <button onClick={firstRound}>First Round</button>
             <button onClick={reproductionRound}>Reproduction Round</button>
             <button onClick={survivalRound}>Survival Round</button>
