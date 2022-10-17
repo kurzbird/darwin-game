@@ -3,6 +3,7 @@ import { useState } from "react";
 import traits from "../data/traits.json";
 import survivalChance from "../data/survivalChance.json";
 import MutationDisplay from "./MutationDisplay";
+import GameResult from "./GameResult";
 
 // function Game() {
 //     const [page, setPage] = useState(0);
@@ -57,6 +58,7 @@ const Game = () => {
     const [catastrophe, setCatastrophe] = useState("")
     const [lifelines, setLifelines] = useState(2);
     const [showMutationDisplay, setShowMutationDisplay] = useState(false);
+    const [endGame, setEndGame] = useState(false);
 
     const openDisplay = () => {
         setShowMutationDisplay(!showMutationDisplay)
@@ -72,6 +74,12 @@ const Game = () => {
             reproductionRound();
             survivalRound();
             setYears(138888);
+
+            // insert popup message for win/loss
+            if (popCount === 0) {
+                console.log("you lose!");
+            }
+
             setCurrentRound(3);
         }
 
@@ -79,6 +87,11 @@ const Game = () => {
             reproductionRound();
             survivalRound();
             setYears(416666);
+
+            if (popCount === 0) {
+                console.log("you lose!");
+            }
+
             setCurrentRound(4);
         }
 
@@ -86,6 +99,11 @@ const Game = () => {
             reproductionRound();
             survivalRound();
             setYears(694444);
+
+            if (popCount === 0) {
+                console.log("you lose!");
+            }
+
             setCurrentRound(5);
         }
 
@@ -93,7 +111,12 @@ const Game = () => {
             reproductionRound();
             survivalRound();
             setYears(1000000);
-            console.log("you win!");
+
+            if (popCount === 0) {
+                console.log("you lose!");
+            } else {
+                console.log("you win!");
+            }
         }
 
     }
@@ -180,6 +203,10 @@ const Game = () => {
             <button onClick={reproductionRound}>Reproduction Round</button>
             <button onClick={survivalRound}>Survival Round</button>
             <button onClick={playGame}>Play Game</button>
+            <button onClick={() => setEndGame(true)}>Game Result Popup</button>
+            <GameResult trigger={endGame} setTrigger={setEndGame}>
+                <h3>Game Over!</h3>
+            </GameResult>
             <button onClick={openDisplay}>Show Mutation Display</button>
             <div>
                 {showMutationDisplay && <MutationDisplay genePool={randomMutations}></MutationDisplay>}

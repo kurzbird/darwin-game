@@ -16,6 +16,7 @@ function MutationDisplay({genePool}) {
                 {genePool.map((Mutation, i) => <p onClick={() => selectMutation(Mutation)} key={i}>Mutation {i+1}: {Mutation.legs}, {Mutation.size}, {Mutation.neck}, {Mutation.hair}, {Mutation.camo}</p>)}
             </div>
 
+            <button>More Mutations</button>
             <p>Selected Mutations: {selections.map((selection, i) => <span key={i}>Picked: {selection.legs}, {selection.size}, {selection.neck}, {selection.hair}, {selection.camo} <br /></span>)}</p>
         </div>
     )
