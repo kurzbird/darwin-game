@@ -4,6 +4,7 @@ import traits from "../data/traits.json";
 import survivalChance from "../data/survivalChance.json";
 import MutationDisplay from "./MutationDisplay";
 import GameResult from "./GameResult";
+import Button from "./Button";
 
 // function Game() {
 //     const [page, setPage] = useState(0);
@@ -195,19 +196,19 @@ const Game = () => {
 
     return (
         <section>
-            <h1>Who Wants to Live a Million Years?</h1>
+            <h1>Are We There, Yeti?</h1>
             <h3>Current Population: {popCount}</h3>
             <h3>Year: {years}</h3>
             <h3>Catastrophic Event: {catastrophe}</h3>
-            <button onClick={firstRound}>First Round</button>
-            <button onClick={reproductionRound}>Reproduction Round</button>
-            <button onClick={survivalRound}>Survival Round</button>
-            <button onClick={playGame}>Play Game</button>
-            <button onClick={() => setEndGame(true)}>Game Result Popup</button>
+            <Button text="First Round" onClick={firstRound}/>
+            <Button text="Reproduction Round" onClick={reproductionRound}/>
+            <Button text="Survival Round" onClick={survivalRound}/>
+            <Button text="Simulate Full Game" onClick={playGame} />
+            <Button text="Game Result Popup" onClick={() => setEndGame(true)}/>
             <GameResult trigger={endGame} setTrigger={setEndGame}>
                 <h3>Game Over!</h3>
             </GameResult>
-            <button onClick={openDisplay}>Show Mutation Display</button>
+            <Button text="Show Mutation Display" onClick={openDisplay}/>
             <div>
                 {showMutationDisplay && <MutationDisplay genePool={randomMutations}></MutationDisplay>}
             </div>
