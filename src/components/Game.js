@@ -197,13 +197,15 @@ const Game = () => {
     return (
         <section>
             <h1>Are We There, Yeti?</h1>
-            <h3>Current Population: {popCount}</h3>
+            <h3>Current Population: {population.map((yeti, i) => <span key={i} style={{color: "navy"}}> Yeti {i+1}: {yeti.legs}, {yeti.size}, {yeti.neck}, {yeti.hair}, {yeti.camo} <br /></span> )} </h3>
+            <h3>Current Population Count: {popCount}</h3>
+            <h3>Extra Mutations Remaining: {lifelines}</h3>
             <h3>Year: {years}</h3>
             <h3>Catastrophic Event: {catastrophe}</h3>
             <Button text="First Round" onClick={firstRound}/>
             <Button text="Reproduction Round" onClick={reproductionRound}/>
             <Button text="Survival Round" onClick={survivalRound}/>
-            <Button text="Simulate Full Game" onClick={playGame} />
+            <Button text="Simulate Full Round & Game" onClick={playGame} />
             <Button text="Game Result Popup" onClick={() => setEndGame(true)}/>
             <GameResult trigger={endGame} setTrigger={setEndGame}>
                 <h3>Game Over!</h3>
