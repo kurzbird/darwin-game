@@ -31,9 +31,6 @@ class Traits {
     }
 };
 
-// for populating screen with creatures
-// {population.map((creature, index) => <p key={index}>creature</p>)}
-
 // TO-DO: change this to user selection from MutationDisplay + double it
 let population = [createRandomOffspring(), createRandomOffspring(), createRandomOffspring()];
 const randomMutations = [createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring()];
@@ -122,7 +119,6 @@ const Game = () => {
 
     }
 
-
     // Ensures larger starting population before catastrophes
     function firstRound() {
         for (let i = 0; i < 3; i++) {
@@ -130,7 +126,6 @@ const Game = () => {
         }
         survivalRound();
         setPopCount(population.length);
-        console.log(population);
 
         return population;
     }
@@ -141,7 +136,6 @@ const Game = () => {
             population.push(singleOffspring(randomElement(population), randomElement(population)));
         }
         setPopCount(population.length);
-        console.log(population);
 
         return population;
     }
@@ -161,7 +155,6 @@ const Game = () => {
     function survivalRound() {
         const CATASTROPHES = ["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "VIRUS", "VOLCANO"]
         const catastrophe = randomElement(CATASTROPHES);
-        console.log(catastrophe);
         for (let i = 0; i < population.length; i++) {
             if (survivalTest(population[i], survivalChance[catastrophe]) === false) {
                 population.splice(i, 1);
@@ -186,33 +179,36 @@ const Game = () => {
 
         // random integer between 1 to 100
         const rndInteger = Math.floor(Math.random() * 100) + 1;
-        if (chance >= rndInteger) {
-            return true
-        }
-        else {
-            return false
+        return chance >= rndInteger;
+    }
+
+    const handleSelect = (selection) => {
+        if (lifelines > 0) {
+            population.push(selection);
+            setPopCount(population.length);
+            setLifelines(lifelines-1);
         }
     }
 
     return (
         <section>
             <h1>Are We There, Yeti?</h1>
-            <h3>Current Population: {population.map((yeti, i) => <span key={i} style={{color: "navy"}}> Yeti {i+1}: {yeti.legs}, {yeti.size}, {yeti.neck}, {yeti.hair}, {yeti.camo} <br /></span> )} </h3>
+            <h3>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.neck}, {yeti.hair}, {yeti.camo} <br /></span>)} </h3>
             <h3>Current Population Count: {popCount}</h3>
             <h3>Extra Mutations Remaining: {lifelines}</h3>
             <h3>Year: {years}</h3>
             <h3>Catastrophic Event: {catastrophe}</h3>
-            <Button text="First Round" onClick={firstRound}/>
-            <Button text="Reproduction Round" onClick={reproductionRound}/>
-            <Button text="Survival Round" onClick={survivalRound}/>
+            <Button text="First Round" onClick={firstRound} />
+            <Button text="Reproduction Round" onClick={reproductionRound} />
+            <Button text="Survival Round" onClick={survivalRound} />
             <Button text="Simulate Full Round & Game" onClick={playGame} />
-            <Button text="Game Result Popup" onClick={() => setEndGame(true)}/>
+            <Button text="Game Result Popup" onClick={() => setEndGame(true)} />
             <GameResult trigger={endGame} setTrigger={setEndGame}>
                 <h3>Game Over!</h3>
             </GameResult>
-            <Button text="Show Mutation Display" onClick={openDisplay}/>
+            <Button text="Show Mutation Display" onClick={openDisplay} />
             <div>
-                {showMutationDisplay && <MutationDisplay genePool={randomMutations}></MutationDisplay>}
+                {showMutationDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleSelect}></MutationDisplay>}
             </div>
         </section>
     )

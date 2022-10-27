@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Button from "./Button";
 
-function MutationDisplay({genePool}) {
+function MutationDisplay({genePool, onSelectMutation}) {
 
     const [selections, setSelections] = useState([])
 
     const selectMutation = (selection) => {
-        console.log(selection)
+        onSelectMutation(selection)
         setSelections([...selections, selection])
     }
 
@@ -18,7 +18,6 @@ function MutationDisplay({genePool}) {
             </div>
 
             <Button text="More Mutations"/>
-            <p>Selected Mutations: {selections.map((selection, i) => <span key={i}>Picked: {selection.legs}, {selection.size}, {selection.neck}, {selection.hair}, {selection.camo} <br /></span>)}</p>
         </div>
     )
 }
