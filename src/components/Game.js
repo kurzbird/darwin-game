@@ -32,8 +32,7 @@ class Traits {
 };
 
 // TO-DO: change this to user selection from MutationDisplay + double it
-let population = [createRandomOffspring(), createRandomOffspring(), createRandomOffspring()];
-const randomMutations = [createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring()];
+let population = [];
 
 function createRandomOffspring() {
     return new Traits(
@@ -56,6 +55,7 @@ const Game = () => {
     const [catastrophe, setCatastrophe] = useState("")
     const [lifelines, setLifelines] = useState(2);
     const [showMutationDisplay, setShowMutationDisplay] = useState(false);
+    const [showStarterDisplay, setShowStarterDisplay] = useState(true);
     const [endGame, setEndGame] = useState(false);
 
     const openDisplay = () => {
@@ -122,9 +122,8 @@ const Game = () => {
     // Ensures larger starting population before catastrophes
     function firstRound() {
         for (let i = 0; i < 3; i++) {
-            reproductionRound();
+            population.push(population[i]);
         }
-        survivalRound();
         setPopCount(population.length);
 
         return population;
@@ -150,6 +149,19 @@ const Game = () => {
             traits.CAMO[Math.floor((traits.CAMO.indexOf(animal_1.camo) + traits.CAMO.indexOf(animal_2.camo)) / 2)]
         );
     }
+
+    // possibility of one or more traits being completely unique from its parents
+    // if both parents have same trait, it will always default to the trait variation one below
+    function singleMutantOffspring(animal_1, animal_2) {
+        return new Traits(
+            traits.LEGS.at(Math.floor((traits.LEGS.indexOf(animal_1.legs) + traits.LEGS.indexOf(animal_2.legs)) / 2) - 1),
+            traits.SIZE.at(Math.floor((traits.SIZE.indexOf(animal_1.size) + traits.SIZE.indexOf(animal_2.size)) / 2) - 1),
+            traits.NECK.at(Math.floor((traits.NECK.indexOf(animal_1.neck) + traits.NECK.indexOf(animal_2.neck)) / 2) - 1),
+            traits.HAIR.at(Math.floor((traits.HAIR.indexOf(animal_1.hair) + traits.HAIR.indexOf(animal_2.hair)) / 2) - 1),
+            traits.CAMO.at(Math.floor((traits.CAMO.indexOf(animal_1.camo) + traits.CAMO.indexOf(animal_2.camo)) / 2) - 1)
+        );
+    }
+
     // should return population with changes
     // references surivival test
     function survivalRound() {
@@ -186,13 +198,42 @@ const Game = () => {
         if (lifelines > 0) {
             population.push(selection);
             setPopCount(population.length);
-            setLifelines(lifelines-1);
+            setLifelines(lifelines - 1);
+            openDisplay();
+        }
+    }
+
+    const handleStarterSelect = (selection) => {
+        if (population.length < 3) {
+            population.push(selection);
+            setPopCount(population.length);
+        }
+
+        if (population.length === 3) {
+            setShowStarterDisplay(false);
+        }
+    }
+
+    const randomMutations = () => {
+        return [createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring()]
+    }
+
+    // 9 random mutations from existing population
+    const mutantGenePool = () => {
+        if (population.length === 0) {
+            return randomMutations;
+        } else {
+            return [singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population))]
         }
     }
 
     return (
         <section>
             <h1>Are We There, Yeti?</h1>
+            <div>
+                <h3 style={{ color: "#800020" }}>Before we start the game, let's choose our first yetis! </h3>
+                {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!"></MutationDisplay>}
+            </div>
             <h3>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.neck}, {yeti.hair}, {yeti.camo} <br /></span>)} </h3>
             <h3>Current Population Count: {popCount}</h3>
             <h3>Extra Mutations Remaining: {lifelines}</h3>
@@ -204,11 +245,11 @@ const Game = () => {
             <Button text="Simulate Full Round & Game" onClick={playGame} />
             <Button text="Game Result Popup" onClick={() => setEndGame(true)} />
             <GameResult trigger={endGame} setTrigger={setEndGame}>
-                <h3>Game Over!</h3>
+                <h3 style={{ color: "black" }}>Game Over!</h3>
             </GameResult>
             <Button text="Show Mutation Display" onClick={openDisplay} />
             <div>
-                {showMutationDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleSelect}></MutationDisplay>}
+                {showMutationDisplay && <MutationDisplay genePool={mutantGenePool} onSelectMutation={handleSelect} text="Mutation Display - click to add a mutation to population!" refreshGenePool={mutantGenePool}></MutationDisplay>}
             </div>
         </section>
     )

@@ -2,18 +2,18 @@ import React from "react";
 import "./GameResult.css";
 import win from "../assets/win.png";
 import lose from "../assets/lose.png";
+import Button from "./Button";
 
 const GameResult = (props) => {
-
 
     return (props.trigger) ? (
         <div className="game-result-popup">
             <div className="popup-inner">
-                <button className="try-again" onClick={() => props.setTrigger(false)}>Close</button>
+                <Button text="Close" onClick={() => props.setTrigger(false)}/>
                 { props.children }
-                <p>Win Screen</p>
+                <p style={{color: "black"}}>Win Screen</p>
                 <img src={win} alt="win-screen" />
-                <p>Loss Screen</p>
+                <p style={{ color: "black" }}>Loss Screen</p>
                 <img src={lose} alt="loss-screen" />
             </div>
         </div>
