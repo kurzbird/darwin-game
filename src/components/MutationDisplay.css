@@ -1,0 +1,9 @@
+.mutation-display {
+    border-style: solid;
+    border-color: lightgray;
+    max-width: 600px;
+}
+
+.display-header {
+    color: navy;
+}

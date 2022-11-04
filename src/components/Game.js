@@ -5,6 +5,7 @@ import survivalChance from "../data/survivalChance.json";
 import MutationDisplay from "./MutationDisplay";
 import GameResult from "./GameResult";
 import Button from "./Button";
+import "./Game.css";
 
 // function Game() {
 //     const [page, setPage] = useState(0);
@@ -56,67 +57,71 @@ const Game = () => {
     const [lifelines, setLifelines] = useState(2);
     const [showMutationDisplay, setShowMutationDisplay] = useState(false);
     const [showStarterDisplay, setShowStarterDisplay] = useState(true);
+    const [buttonText, setButtonText] = useState("Play Game")
     const [endGame, setEndGame] = useState(false);
 
     const openDisplay = () => {
-        setShowMutationDisplay(!showMutationDisplay)
+        if (population.length > 0 && years < 1000000) {
+            setShowMutationDisplay(!showMutationDisplay)
+        }
     }
 
     const playGame = () => {
         if (currentRound === 1) {
             firstRound();
             setCurrentRound(2);
+            setButtonText("Next Round");
         }
 
         if (currentRound === 2) {
             reproductionRound();
             survivalRound();
-            setYears(138888);
 
-            // insert popup message for win/loss
+            // TO-DO: insert popup message for win/loss
             if (popCount === 0) {
-                console.log("you lose!");
+                setButtonText("Play Again?");
+            } else {
+                setYears(138888);
+                setCurrentRound(3);
             }
-
-            setCurrentRound(3);
         }
 
         if (currentRound === 3) {
             reproductionRound();
             survivalRound();
-            setYears(416666);
 
             if (popCount === 0) {
-                console.log("you lose!");
+                setButtonText("Play Again?");
+            } else {
+                setYears(416666);
+                setCurrentRound(4);
             }
-
-            setCurrentRound(4);
         }
 
         if (currentRound === 4) {
             reproductionRound();
             survivalRound();
-            setYears(694444);
 
             if (popCount === 0) {
-                console.log("you lose!");
+                setButtonText("Play Again?");
+            } else {
+                setYears(694444);
+                setCurrentRound(5);
             }
-
-            setCurrentRound(5);
         }
 
         if (currentRound === 5) {
             reproductionRound();
             survivalRound();
-            setYears(1000000);
+            setButtonText("Play Again?");
 
             if (popCount === 0) {
                 console.log("you lose!");
             } else {
+                setYears(1000000);
                 console.log("you win!");
             }
         }
-
     }
 
     // Ensures larger starting population before catastrophes
@@ -227,11 +232,24 @@ const Game = () => {
         }
     }
 
+    const resetGame = () => {
+        population = [];
+        setPopCount(0);
+        setCurrentRound(1);
+        setYears(1);
+        setCatastrophe("");
+        setLifelines(2);
+        setShowMutationDisplay(false);
+        setShowStarterDisplay(true);
+        setButtonText("Play Game");
+        setEndGame(false);
+    }
+
     return (
         <section>
             <h1>Are We There, Yeti?</h1>
-            <div>
-                <h3 style={{ color: "#800020" }}>Before we start the game, let's choose our first yetis! </h3>
+            <div className="display-container">
+                {showStarterDisplay && <h3 className="starter-instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h3>}
                 {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!"></MutationDisplay>}
             </div>
             <h3>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.neck}, {yeti.hair}, {yeti.camo} <br /></span>)} </h3>
@@ -239,16 +257,16 @@ const Game = () => {
             <h3>Extra Mutations Remaining: {lifelines}</h3>
             <h3>Year: {years}</h3>
             <h3>Catastrophic Event: {catastrophe}</h3>
-            <Button text="First Round" onClick={firstRound} />
             <Button text="Reproduction Round" onClick={reproductionRound} />
             <Button text="Survival Round" onClick={survivalRound} />
-            <Button text="Simulate Full Round & Game" onClick={playGame} />
+            <Button text={buttonText} onClick={buttonText === "Play Again?" ? resetGame : playGame} />
             <Button text="Game Result Popup" onClick={() => setEndGame(true)} />
             <GameResult trigger={endGame} setTrigger={setEndGame}>
                 <h3 style={{ color: "black" }}>Game Over!</h3>
             </GameResult>
+            <Button text="Reset Game" onClick={resetGame} />
             <Button text="Show Mutation Display" onClick={openDisplay} />
-            <div>
+            <div className="display-container">
                 {showMutationDisplay && <MutationDisplay genePool={mutantGenePool} onSelectMutation={handleSelect} text="Mutation Display - click to add a mutation to population!" refreshGenePool={mutantGenePool}></MutationDisplay>}
             </div>
         </section>

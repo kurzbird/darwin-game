@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "./Button";
+import "./MutationDisplay.css";
 
 function MutationDisplay({ genePool, onSelectMutation, text, refreshGenePool }) {
 
@@ -16,8 +17,8 @@ function MutationDisplay({ genePool, onSelectMutation, text, refreshGenePool }) 
     }
 
     return (
-        <div>
-            <h3>{text}</h3>
+        <div className="mutation-display">
+            <h3 className="display-header">{text}</h3>
             <div className="random-mutations">
                 {mutationsToDisplay.map((Mutation, i) => <p onClick={() => selectMutation(Mutation)} key={i}>Mutation {i + 1}: {Mutation.legs}, {Mutation.size}, {Mutation.neck}, {Mutation.hair}, {Mutation.camo}</p>)}
             </div>
