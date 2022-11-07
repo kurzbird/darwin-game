@@ -67,15 +67,17 @@ const Game = () => {
     }
 
     const playGame = () => {
-        if (currentRound === 1) {
+        if (currentRound === 1 && population.length === 3) {
             firstRound();
             setCurrentRound(2);
+            darwinTexts();
             setButtonText("Next Round");
         }
 
         if (currentRound === 2) {
             reproductionRound();
             survivalRound();
+            darwinTexts();
 
             // TO-DO: insert popup message for win/loss
             if (popCount === 0) {
@@ -89,6 +91,7 @@ const Game = () => {
         if (currentRound === 3) {
             reproductionRound();
             survivalRound();
+            darwinTexts();
 
             if (popCount === 0) {
                 setButtonText("Play Again?");
@@ -101,6 +104,7 @@ const Game = () => {
         if (currentRound === 4) {
             reproductionRound();
             survivalRound();
+            darwinTexts();
 
             if (popCount === 0) {
                 setButtonText("Play Again?");
@@ -113,6 +117,7 @@ const Game = () => {
         if (currentRound === 5) {
             reproductionRound();
             survivalRound();
+            darwinTexts();
             setButtonText("Play Again?");
 
             if (popCount === 0) {
@@ -232,6 +237,40 @@ const Game = () => {
         }
     }
 
+    const darwinTexts = () => {
+        if (years === 1 && population.length === 6) {
+            return "You’ve made your selections. Now, as the environment changes, the animals with traits most suited to the new environment will thrive. Your goal: help your species survive the next 1 million years."
+        }
+
+        if (years === 1) {
+            return "The traits you choose will affect your species’ chance of survival, depending on the environment they will face. A little hint – diversity can ensure survival against even the harshest elements."
+        }
+
+        if (catastrophe === "COLD") {
+            return "Brrr, it’s getting colder. Some animals will die off if they can’t stay warm. Would you like to introduce a mutation?"
+        }
+
+        if (catastrophe === "HOT") {
+            return "Is it just me, or is it getting hot in here? I think we may be entering a period of global warming. Would you like to introduce a mutation?"
+        }
+
+        if (catastrophe === "PREDATORS") {
+            return "The only thing we have to fear is fear itself… oh, and the hungry yeti predators invading the area. Would you like to introduce a mutation?"
+        }
+
+        if (catastrophe === "TALL_PLANTS") {
+            return "A delicious fruit has begun to grow on tall stalks in your habitat. Are your animals tall enough? Would you like to introduce a mutation?"
+        }
+
+        if (catastrophe === "VOLCANO") {
+            return "Run for cover! The volcano is erupting! It’s a cataclysmic event – unfortunately, there’s no time to introduce a mutation. Hopefully your species can survive."
+        }
+
+        if (catastrophe === "VIRUS") {
+            return "Bad news! A deadly virus is quickly spreading through your species. It’s a cataclysmic event – unfortunately, there’s no time to introduce a mutation. Hopefully your species can survive"
+        }
+    }
+
     const resetGame = () => {
         population = [];
         setPopCount(0);
@@ -249,7 +288,7 @@ const Game = () => {
         <section>
             <h1>Are We There, Yeti?</h1>
             <div className="display-container">
-                {showStarterDisplay && <h3 className="starter-instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h3>}
+                {showStarterDisplay && <h3 className="instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h3>}
                 {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!"></MutationDisplay>}
             </div>
             <h3>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.neck}, {yeti.hair}, {yeti.camo} <br /></span>)} </h3>
@@ -257,6 +296,11 @@ const Game = () => {
             <h3>Extra Mutations Remaining: {lifelines}</h3>
             <h3>Year: {years}</h3>
             <h3>Catastrophic Event: {catastrophe}</h3>
+            <div className="display-container">
+                <div className="text-display">
+                    <h3 className="instructions">Darwin the Yeti: {darwinTexts()}</h3>
+                </div>
+            </div>
             <Button text="Reproduction Round" onClick={reproductionRound} />
             <Button text="Survival Round" onClick={survivalRound} />
             <Button text={buttonText} onClick={buttonText === "Play Again?" ? resetGame : playGame} />

@@ -1,10 +1,16 @@
-.starter-instructions {
-    color: #800020;
-}
-
 .display-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.text-display {
+    border-style: solid;
+    border-color: lightgray;
+    max-width: 600px;
+}
+
+.instructions {
+    color: #800020;
 }
