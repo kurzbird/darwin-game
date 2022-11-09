@@ -4,6 +4,7 @@ import traits from "../data/traits.json";
 import survivalChance from "../data/survivalChance.json";
 import MutationDisplay from "./MutationDisplay";
 import GameResult from "./GameResult";
+import HintBook from "./HintBook";
 import Button from "./Button";
 import "./Game.css";
 
@@ -32,7 +33,6 @@ class Traits {
     }
 };
 
-// TO-DO: change this to user selection from MutationDisplay + double it
 let population = [];
 
 function createRandomOffspring() {
@@ -59,10 +59,18 @@ const Game = () => {
     const [showStarterDisplay, setShowStarterDisplay] = useState(true);
     const [buttonText, setButtonText] = useState("Play Game")
     const [endGame, setEndGame] = useState(false);
+    const [showHints, setShowHints] = useState(false);
+
+    const openHints = () => {
+        setShowHints(!showHints);
+        setShowMutationDisplay(false);
+    }
 
     const openDisplay = () => {
-        if (population.length > 0 && years < 1000000) {
+        if (population.length > 0 && years < 1000000 && currentRound > 2 &&
+            catastrophe !== "VOLCANO" && catastrophe !== "VIRUS") {
             setShowMutationDisplay(!showMutationDisplay)
+            setShowHints(false);
         }
     }
 
@@ -247,7 +255,7 @@ const Game = () => {
         }
 
         if (catastrophe === "COLD") {
-            return "Brrr, it’s getting colder. Some animals will die off if they can’t stay warm. Would you like to introduce a mutation?"
+            return "Brrr, it’s getting colder. We might be entering an ice age. Some animals will die off if they can’t stay warm. Would you like to introduce a mutation?"
         }
 
         if (catastrophe === "HOT") {
@@ -267,7 +275,7 @@ const Game = () => {
         }
 
         if (catastrophe === "VIRUS") {
-            return "Bad news! A deadly virus is quickly spreading through your species. It’s a cataclysmic event – unfortunately, there’s no time to introduce a mutation. Hopefully your species can survive"
+            return "Bad news! A deadly virus is quickly spreading through your species. It’s a cataclysmic event – unfortunately, there’s no time to introduce a mutation. Hopefully your species can survive."
         }
     }
 
@@ -310,8 +318,10 @@ const Game = () => {
             </GameResult>
             <Button text="Reset Game" onClick={resetGame} />
             <Button text="Show Mutation Display" onClick={openDisplay} />
+            <Button text="Hints" onClick={openHints} />
             <div className="display-container">
                 {showMutationDisplay && <MutationDisplay genePool={mutantGenePool} onSelectMutation={handleSelect} text="Mutation Display - click to add a mutation to population!" refreshGenePool={mutantGenePool}></MutationDisplay>}
+                {showHints && <HintBook />}
             </div>
         </section>
     )

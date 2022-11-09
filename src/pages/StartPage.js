@@ -5,7 +5,7 @@ const StartPage = () => {
     return (
         <section className="home">
             <div className='text-container'>
-                <div classname="text">
+                <div className="text">
                     <h1>Are We There, Yeti?</h1>
                     <h3>Introduction:</h3>
                     <p>Welcome to “Are We There, Yeti?” – the game based on Charles Darwin's principles of natural selection.

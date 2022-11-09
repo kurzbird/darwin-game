@@ -9,6 +9,7 @@
     border-style: solid;
     border-color: lightgray;
     max-width: 600px;
+    min-height: 80px;
 }
 
 .instructions {
