@@ -74,6 +74,11 @@ const Game = () => {
         }
     }
 
+    const CATASTROPHES = ["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "VIRUS", "VOLCANO"]
+    const randomCatastrophe = () => {
+        return randomElement(CATASTROPHES);
+    }
+
     const playGame = () => {
         if (currentRound === 1 && population.length === 3) {
             firstRound();
@@ -84,7 +89,8 @@ const Game = () => {
 
         if (currentRound === 2) {
             reproductionRound();
-            survivalRound();
+            survivalRound(randomCatastrophe());
+            setCatastrophe(randomCatastrophe());
             darwinTexts();
 
             // TO-DO: insert popup message for win/loss
@@ -98,7 +104,8 @@ const Game = () => {
 
         if (currentRound === 3) {
             reproductionRound();
-            survivalRound();
+            survivalRound(catastrophe);
+            setCatastrophe(randomCatastrophe());
             darwinTexts();
 
             if (popCount === 0) {
@@ -111,7 +118,8 @@ const Game = () => {
 
         if (currentRound === 4) {
             reproductionRound();
-            survivalRound();
+            survivalRound(catastrophe);
+            setCatastrophe(randomCatastrophe());
             darwinTexts();
 
             if (popCount === 0) {
@@ -124,7 +132,8 @@ const Game = () => {
 
         if (currentRound === 5) {
             reproductionRound();
-            survivalRound();
+            survivalRound(catastrophe);
+            setCatastrophe(randomCatastrophe());
             darwinTexts();
             setButtonText("Play Again?");
 
@@ -182,9 +191,7 @@ const Game = () => {
 
     // should return population with changes
     // references surivival test
-    function survivalRound() {
-        const CATASTROPHES = ["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "VIRUS", "VOLCANO"]
-        const catastrophe = randomElement(CATASTROPHES);
+    function survivalRound(catastrophe) {
         for (let i = 0; i < population.length; i++) {
             if (survivalTest(population[i], survivalChance[catastrophe]) === false) {
                 population.splice(i, 1);
@@ -250,6 +257,10 @@ const Game = () => {
             return "You’ve made your selections. Now, as the environment changes, the animals with traits most suited to the new environment will thrive. Your goal: help your species survive the next 1 million years."
         }
 
+        if (popCount > 0 && currentRound === 5) {
+            return "Wow, your species survived for a million years! Who knows, one day their descendants could rule the planet. I hope you gained some insight into how natural selection works. Care to try again?"
+        }
+
         if (years === 1) {
             return "The traits you choose will affect your species’ chance of survival, depending on the environment they will face. A little hint – diversity can ensure survival against even the harshest elements."
         }
@@ -309,8 +320,6 @@ const Game = () => {
                     <h3 className="instructions">Darwin the Yeti: {darwinTexts()}</h3>
                 </div>
             </div>
-            <Button text="Reproduction Round" onClick={reproductionRound} />
-            <Button text="Survival Round" onClick={survivalRound} />
             <Button text={buttonText} onClick={buttonText === "Play Again?" ? resetGame : playGame} />
             <Button text="Game Result Popup" onClick={() => setEndGame(true)} />
             <GameResult trigger={endGame} setTrigger={setEndGame}>
