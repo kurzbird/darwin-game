@@ -13,16 +13,22 @@
     - Camo: stripes, no stripes
     - Neck: short, medium, long
     - Size: thin, medium, bulky
-    - Hair: no hair, short hair, furry
+    - Hair: no hair, short hair, medium hair, long hair
 
 - Make mutations w/ traits
     - User can pick 3 different mutations
 
 - Population in array
 
-- One breeding round
-    - Pick 2 random types and mix to breed a third one
+- One reproduction round
+    - Pick 2 random animals to produce offspring with mixed traits
     - Reproduction rate = 1.5x
+
+- One survival round
+    - Use environmental event to filter population
+    - Should be used multiple times (population changes as it goes)
+
+- Generation = one reproduction round + one survival round
 
 - Add environmental events - 60% max chance of survival
     - Cold (60% max)
@@ -35,14 +41,6 @@
         - Size: thin 20% chance of living
         - Hair: no hair 20% chance of living
         - Neck: long 10% chance of living
-    - Volcano (60% max)
-        - Legs: short 20% chance of living
-        - Size: thin 20% chance of living
-        - Neck: short 20% chance of living
-    - Virus (40% max)
-        - Legs: short 10% chance of living
-        - Size: thin 20% chance of living
-        - Neck: long 10% chance of living
     - Predator (60% max)
         - Legs: long 20% chance of living
         - Size: thin 20% chance of living
@@ -50,9 +48,14 @@
     - Tall plants w/ fruits (60%)
         - Legs: long 30% chance of living
         - Neck: long 30% chance of living
-
-- One filtering round
-    - Use environmental event to filter population
-    - Should be used multiple times (population changes as it goes)
-
-- Generation = one reproduction round + one survival round
+     - Asteroid (40% max)
+        - Legs: short 20% chance of living
+        - Size: thin 20% chance of living
+    - Volcano (40% max)
+        - Legs: short 10% chance of living
+        - Size: thin 20% chance of living
+        - Neck: short 10% chance of living
+    - Virus (40% max)
+        - Legs: short 10% chance of living
+        - Size: thin 20% chance of living
+        - Neck: long 10% chance of living

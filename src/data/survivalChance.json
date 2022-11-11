@@ -24,6 +24,11 @@
         "neck": { "SHORT_NECK": 0, "MEDIUM_NECK": 15, "LONG_NECK": 30 }
     },
 
+    "ASTEROID": {
+        "legs": { "SHORT_LEGS": 20, "MEDIUM_LEGS": 10, "LONG_LEGS": 0 },
+        "size": { "THIN": 20, "MEDIUM": 10, "BULKY": 0 }
+    },
+
     "VIRUS": {
         "legs": { "SHORT_LEGS": 10, "MEDIUM_LEGS": 5, "LONG_LEGS": 0 },
         "size": { "THIN": 20, "MEDIUM": 10, "BULKY": 0 },
@@ -31,8 +36,8 @@
     },
 
     "VOLCANO" : {
-        "legs": { "SHORT_LEGS": 20, "MEDIUM_LEGS": 10, "LONG_LEGS": 0 },
+        "legs": { "SHORT_LEGS": 10, "MEDIUM_LEGS": 10, "LONG_LEGS": 0 },
         "size": { "THIN": 20, "MEDIUM": 10, "BULKY": 0 },
-        "neck": { "SHORT_NECK": 20, "MEDIUM_NECK": 10, "LONG_NECK": 0 }
+        "neck": { "SHORT_NECK": 10, "MEDIUM_NECK": 5, "LONG_NECK": 0 }
     }
 }

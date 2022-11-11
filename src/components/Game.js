@@ -68,7 +68,7 @@ const Game = () => {
 
     const openDisplay = () => {
         if (population.length > 0 && years < 1000000 && currentRound > 2 &&
-            catastrophe !== "VOLCANO" && catastrophe !== "VIRUS") {
+            catastrophe !== "VOLCANO" && catastrophe !== "VIRUS" && catastrophe !== "ASTEROID") {
             setShowMutationDisplay(!showMutationDisplay)
             setShowHints(false);
         }
@@ -279,6 +279,10 @@ const Game = () => {
 
         if (catastrophe === "TALL_PLANTS") {
             return "A delicious fruit has begun to grow on tall stalks in your habitat. Are your animals tall enough? Would you like to introduce a mutation?"
+        }
+
+        if (catastrophe === "ASTEROID") {
+            return "Emergency! The planet has just been hit by an asteroid! It’s a cataclysmic event – unfortunately there’s no time to use a Life Preserver. Hopefully, your species are hardy enough to survive."
         }
 
         if (catastrophe === "VOLCANO") {
