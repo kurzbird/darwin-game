@@ -24,10 +24,10 @@ import "./Game.css";
 //     return <div><Page goToNext={() => setPage(page + 1)} /></div>;
 // }
 class Traits {
-    constructor(legs, size, neck, hair, camo) {
+    constructor(legs, size, horns, hair, camo) {
         this.legs = legs;
         this.size = size;
-        this.neck = neck;
+        this.horns = horns;
         this.hair = hair;
         this.camo = camo;
     }
@@ -39,7 +39,7 @@ function createRandomOffspring() {
     return new Traits(
         randomElement(traits.LEGS),
         randomElement(traits.SIZE),
-        randomElement(traits.NECK),
+        randomElement(traits.HORNS),
         randomElement(traits.HAIR),
         randomElement(traits.CAMO)
     );
@@ -171,7 +171,7 @@ const Game = () => {
         return new Traits(
             traits.LEGS[Math.floor((traits.LEGS.indexOf(animal_1.legs) + traits.LEGS.indexOf(animal_2.legs)) / 2)],
             traits.SIZE[Math.floor((traits.SIZE.indexOf(animal_1.size) + traits.SIZE.indexOf(animal_2.size)) / 2)],
-            traits.NECK[Math.floor((traits.NECK.indexOf(animal_1.neck) + traits.NECK.indexOf(animal_2.neck)) / 2)],
+            traits.HORNS[Math.floor((traits.HORNS.indexOf(animal_1.horns) + traits.HORNS.indexOf(animal_2.horns)) / 2)],
             traits.HAIR[Math.floor((traits.HAIR.indexOf(animal_1.hair) + traits.HAIR.indexOf(animal_2.hair)) / 2)],
             traits.CAMO[Math.floor((traits.CAMO.indexOf(animal_1.camo) + traits.CAMO.indexOf(animal_2.camo)) / 2)]
         );
@@ -183,7 +183,7 @@ const Game = () => {
         return new Traits(
             traits.LEGS.at(Math.floor((traits.LEGS.indexOf(animal_1.legs) + traits.LEGS.indexOf(animal_2.legs)) / 2) - 1),
             traits.SIZE.at(Math.floor((traits.SIZE.indexOf(animal_1.size) + traits.SIZE.indexOf(animal_2.size)) / 2) - 1),
-            traits.NECK.at(Math.floor((traits.NECK.indexOf(animal_1.neck) + traits.NECK.indexOf(animal_2.neck)) / 2) - 1),
+            traits.HORNS.at(Math.floor((traits.HORNS.indexOf(animal_1.horns) + traits.HORNS.indexOf(animal_2.horns)) / 2) - 1),
             traits.HAIR.at(Math.floor((traits.HAIR.indexOf(animal_1.hair) + traits.HAIR.indexOf(animal_2.hair)) / 2) - 1),
             traits.CAMO.at(Math.floor((traits.CAMO.indexOf(animal_1.camo) + traits.CAMO.indexOf(animal_2.camo)) / 2) - 1)
         );
@@ -314,7 +314,7 @@ const Game = () => {
                 {showStarterDisplay && <h3 className="instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h3>}
                 {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!"></MutationDisplay>}
             </div>
-            <h3>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.neck}, {yeti.hair}, {yeti.camo} <br /></span>)} </h3>
+            <h3>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.horns}, {yeti.hair}, {yeti.camo} <br /></span>)} </h3>
             <h3>Current Population Count: {popCount}</h3>
             <h3>Extra Mutations Remaining: {lifelines}</h3>
             <h3>Year: {years}</h3>

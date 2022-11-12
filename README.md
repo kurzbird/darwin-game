@@ -11,8 +11,8 @@
 - Make species w/ traits
     - Legs: short, medium, long
     - Camo: stripes, no stripes
-    - Neck: short, medium, long
     - Size: thin, medium, bulky
+    - Horns: no horns, short horns, long horns
     - Hair: no hair, short hair, medium hair, long hair
 
 - Make mutations w/ traits
@@ -35,27 +35,27 @@
         - Legs: short 10% chance of living
         - Size: bulky 20% chance of living
         - Hair: furry 20% chance of living
-        - Neck: short 10% chance of living
+        - Horns: no horns 10% chance of living
     - Hot (60%)
         - Legs: long 10% chance of living
         - Size: thin 20% chance of living
         - Hair: no hair 20% chance of living
-        - Neck: long 10% chance of living
+        - Horns: long 10% chance of living
     - Predator (60% max)
         - Legs: long 20% chance of living
-        - Size: thin 20% chance of living
+        - Size: thin 10% chance of living
         - Camo: stripes 20% chance of living
+        - Horns: long 10% chance of living
     - Tall plants w/ fruits (60%)
         - Legs: long 30% chance of living
-        - Neck: long 30% chance of living
+        - Horns: long 30% chance of living
      - Asteroid (40% max)
         - Legs: short 20% chance of living
         - Size: thin 20% chance of living
     - Volcano (40% max)
-        - Legs: short 10% chance of living
+        - Legs: short 20% chance of living
         - Size: thin 20% chance of living
-        - Neck: short 10% chance of living
     - Virus (40% max)
         - Legs: short 10% chance of living
         - Size: thin 20% chance of living
-        - Neck: long 10% chance of living
+        - Horns: long 10% chance of living

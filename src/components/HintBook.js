@@ -18,14 +18,14 @@ const HintBook = () => {
             </div>
 
             <div className="right">
-                <h3>Long Neck</h3>
-                <p>Pros: Reaches food easier <br /> Cons: Cold weather</p>
-
                 <h3>Short Legs</h3>
                 <p>Pros: Less likely to freeze <br /> Cons: Not very fast</p>
 
                 <h3>Long Legs</h3>
                 <p>Pros: Agile <br /> Cons: Weakness to cold</p>
+
+                <h3>Long Horns</h3>
+                <p>Pros: Self defense <br /> Cons: Can be scary</p>
 
                 <h3>Stripes</h3>
                 <p>Pros: Hides from predators <br /> Cons: Can't wear plaid</p>
