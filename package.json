@@ -1,7 +1,7 @@
 {
   "name": "darwin-game",
   "version": "0.1.0",
-  "homepage": "https://kurzbird.github.io/darwin-game",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -16,7 +16,7 @@
     "start": "react-scripts start",
     "predeploy": "npm run build",
     "deploy": "gh pages -d build",
-    "build": "react-scripts build",
+    "build": "react-scripts build && mv build site",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

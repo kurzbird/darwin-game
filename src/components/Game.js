@@ -74,7 +74,7 @@ const Game = () => {
         }
     }
 
-    const CATASTROPHES = ["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "VIRUS", "VOLCANO"]
+    const CATASTROPHES = ["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "ASTEROID", "VIRUS", "VOLCANO"]
     const randomCatastrophe = () => {
         return randomElement(CATASTROPHES);
     }
