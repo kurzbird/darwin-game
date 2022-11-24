@@ -34,19 +34,18 @@
     - Cold (60% max)
         - Legs: short 10% chance of living
         - Size: bulky 20% chance of living
-        - Hair: furry 20% chance of living
+        - Hair: long hair 20% chance of living
         - Horns: no horns 10% chance of living
-    - Hot (60%)
+    - Hot (60% max)
         - Legs: long 10% chance of living
         - Size: thin 20% chance of living
         - Hair: no hair 20% chance of living
         - Horns: long 10% chance of living
     - Predator (60% max)
         - Legs: long 20% chance of living
-        - Size: thin 10% chance of living
         - Camo: stripes 20% chance of living
-        - Horns: long 10% chance of living
-    - Tall plants w/ fruits (60%)
+        - Horns: long 20% chance of living
+    - Tall plants w/ fruits (60% max)
         - Legs: long 30% chance of living
         - Horns: long 30% chance of living
      - Asteroid (40% max)

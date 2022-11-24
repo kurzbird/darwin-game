@@ -1,22 +1,21 @@
 {
     "COLD": {
         "legs": { "SHORT_LEGS": 10, "MEDIUM_LEGS": 5, "LONG_LEGS": 0 },
-        "hair": { "NO_HAIR": 0, "SHORT_HAIR": 10, "MEDIUM_HAIR": 15, "LONG_HAIR": 20 },
-        "size": { "THIN": -10, "MEDIUM": 10, "BULKY": 20 },
+        "hair": { "NO_HAIR": -10, "SHORT_HAIR": 0, "MEDIUM_HAIR": 10, "LONG_HAIR": 20 },
+        "size": { "THIN": -10, "MEDIUM": 5, "BULKY": 20 },
         "horns": { "NO_HORNS": 10, "SHORT_HORNS": 5, "LONG_HORNS": 0 }
     },
 
     "HOT": {
         "legs": { "SHORT_LEGS": 0, "MEDIUM_LEGS": 5, "LONG_LEGS": 10 },
         "hair": { "NO_HAIR": 20, "SHORT_HAIR": 10, "MEDIUM_HAIR": 0, "LONG_HAIR": -10 },
-        "size": { "THIN": 20, "MEDIUM": 10, "BULKY": 0 },
+        "size": { "THIN": 20, "MEDIUM": 0, "BULKY": -10 },
         "horns": { "NO_HORNS": 0, "SHORT_HORNS": 5, "LONG_HORNS": 10 }
     },
 
     "PREDATORS": {
-        "legs": { "SHORT_LEGS": -10, "MEDIUM_LEGS": 10, "LONG_LEGS": 20 },
-        "size": { "THIN": 10, "MEDIUM": 5, "BULKY": 0 },
-        "horns": { "NO_HORNS": 0, "SHORT_HORNS": 5, "LONG_HORNS": 10 },
+        "legs": { "SHORT_LEGS": 0, "MEDIUM_LEGS": 10, "LONG_LEGS": 20 },
+        "horns": { "NO_HORNS": 0, "SHORT_HORNS": 10, "LONG_HORNS": 20 },
         "camo": { "STRIPES": 20, "NO_STRIPES": 0 }
     },
 
@@ -31,13 +30,13 @@
     },
 
     "VOLCANO" : {
-        "legs": { "SHORT_LEGS": 20, "MEDIUM_LEGS": 10, "LONG_LEGS": 0 },
+        "legs": { "SHORT_LEGS": 20, "MEDIUM_LEGS": 5, "LONG_LEGS": 0 },
         "size": { "THIN": 20, "MEDIUM": 10, "BULKY": 0 }
     },
 
     "VIRUS": {
         "legs": { "SHORT_LEGS": 10, "MEDIUM_LEGS": 5, "LONG_LEGS": 0 },
-        "size": { "THIN": 20, "MEDIUM": 10, "BULKY": 0 },
+        "size": { "THIN": 20, "MEDIUM": 5, "BULKY": 0 },
         "horns": { "NO_HORNS": 0, "SHORT_HORNS": 5, "LONG_HORNS": 10 }
     }
 }

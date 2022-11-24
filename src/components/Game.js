@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import traits from "../data/traits.json";
 import survivalChance from "../data/survivalChance.json";
 import MutationDisplay from "./MutationDisplay";
@@ -60,6 +60,11 @@ const Game = () => {
     const [buttonText, setButtonText] = useState("Play Game")
     const [endGame, setEndGame] = useState(false);
     const [showHints, setShowHints] = useState(false);
+    const [environmentalChanges, setEnvironmentalChanges] = useState(["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "ASTEROID", "VIRUS", "VOLCANO"]);
+
+    useEffect(() => {
+        setPopCount(() => population.length);
+    }, [popCount]);
 
     const openHints = () => {
         setShowHints(!showHints);
@@ -74,80 +79,89 @@ const Game = () => {
         }
     }
 
-    const CATASTROPHES = ["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "ASTEROID", "VIRUS", "VOLCANO"]
-    const randomCatastrophe = () => {
-        return randomElement(CATASTROPHES);
+    const removeCatastrophe = (arr, catastrophe) => {
+        let index = arr.indexOf(catastrophe);
+        if (index > -1) {
+            arr.splice(index, 1);
+        }
+        return arr;
     }
 
     const playGame = () => {
         if (currentRound === 1 && population.length === 3) {
-            firstRound();
+            initialRound();
             setCurrentRound(2);
             darwinTexts();
             setButtonText("Next Round");
         }
 
         if (currentRound === 2) {
-            reproductionRound();
-            survivalRound(randomCatastrophe());
-            setCatastrophe(randomCatastrophe());
-            darwinTexts();
+            simGenerations(randomElement(environmentalChanges));
 
-            // TO-DO: insert popup message for win/loss
             if (popCount === 0) {
+                darwinTexts();
                 setButtonText("Play Again?");
             } else {
+                darwinTexts();
                 setYears(138888);
                 setCurrentRound(3);
+                setCatastrophe(randomElement(environmentalChanges));
+                removeCatastrophe(environmentalChanges, catastrophe);
+                console.log(catastrophe);
+                console.log(environmentalChanges);
             }
         }
 
         if (currentRound === 3) {
-            reproductionRound();
-            survivalRound(catastrophe);
-            setCatastrophe(randomCatastrophe());
-            darwinTexts();
+            simGenerations(catastrophe);
 
             if (popCount === 0) {
+                darwinTexts();
                 setButtonText("Play Again?");
             } else {
+                darwinTexts();
                 setYears(416666);
                 setCurrentRound(4);
+                setCatastrophe(randomElement(environmentalChanges));
+                removeCatastrophe(environmentalChanges, catastrophe);
+                console.log(catastrophe);
+                console.log(environmentalChanges);
             }
         }
 
         if (currentRound === 4) {
-            reproductionRound();
-            survivalRound(catastrophe);
-            setCatastrophe(randomCatastrophe());
-            darwinTexts();
+            simGenerations(catastrophe);
 
             if (popCount === 0) {
+                darwinTexts();
                 setButtonText("Play Again?");
             } else {
+                darwinTexts();
                 setYears(694444);
                 setCurrentRound(5);
+                setCatastrophe(randomElement(environmentalChanges));
+                removeCatastrophe(environmentalChanges, catastrophe);
+                console.log(catastrophe);
+                console.log(environmentalChanges);
             }
         }
 
+        // TO-DO: Add win / loss popup
         if (currentRound === 5) {
-            reproductionRound();
-            survivalRound(catastrophe);
-            setCatastrophe(randomCatastrophe());
-            darwinTexts();
+            simGenerations(catastrophe);
             setButtonText("Play Again?");
 
             if (popCount === 0) {
-                console.log("you lose!");
+                darwinTexts();
             } else {
                 setYears(1000000);
-                console.log("you win!");
+                darwinTexts();
             }
         }
     }
 
     // Ensures larger starting population before catastrophes
-    function firstRound() {
+    function initialRound() {
         for (let i = 0; i < 3; i++) {
             population.push(population[i]);
         }
@@ -156,13 +170,24 @@ const Game = () => {
         return population;
     }
 
+    // Simulates multiple generations of survival and reproduction rounds
+    function simGenerations(catastrophe) {
+        for (let i = 0; i < 2; i++) {
+            oneGeneration(catastrophe);
+        }
+    }
+
+    function oneGeneration(catastrophe) {
+        reproductionRound();
+        survivalRound(catastrophe);
+        setPopCount(population.length);
+    }
+
     function reproductionRound() {
         const reproductionRate = population.length / 2;
         for (let i = 1; i <= reproductionRate; i++) {
             population.push(singleOffspring(randomElement(population), randomElement(population)));
         }
-        setPopCount(population.length);
-
         return population;
     }
 
@@ -197,7 +222,6 @@ const Game = () => {
                 population.splice(i, 1);
             }
         }
-        setPopCount(population.length);
         setCatastrophe(catastrophe);
 
         return population
@@ -257,12 +281,32 @@ const Game = () => {
             return "You’ve made your selections. Now, as the environment changes, the animals with traits most suited to the new environment will thrive. Your goal: help your species survive the next 1 million years."
         }
 
-        if (popCount > 0 && currentRound === 5) {
+        if (popCount > 0 && buttonText === "Play Again?") {
             return "Wow, your species survived for a million years! Who knows, one day their descendants could rule the planet. I hope you gained some insight into how natural selection works. Care to try again?"
         }
 
         if (years === 1) {
             return "The traits you choose will affect your species’ chance of survival, depending on the environment they will face. A little hint – diversity can ensure survival against even the harshest elements."
+        }
+
+        if (catastrophe === "COLD" && popCount === 0) {
+            return "Sorry, your species just couldn’t stay warm in this cold, harsh environment. If they had their longer hair, they might have fared better. Would you like to start from the beginning?"
+        }
+
+        if (catastrophe === "HOT" && popCount === 0) {
+            return "This heat is a killer. Your species found that out when they overheated under all that fur. Care to start again from the beginning?"
+        }
+
+        if (catastrophe === "PREDATORS" && popCount === 0) {
+            return "Oh, the horror. Your yetis just didn’t have the long, quick legs, horns, and stripes to avoid the nasty claws of those predators. Would you like to start from the beginning?"
+        }
+
+        if (catastrophe === "TALL_PLANTS" && popCount === 0) {
+            return "Your yetis saw the food, but they couldn't reach them. A tragedy that may have been avoided if they had longer legs and horns. Would you like to start from the beginning?"
+        }
+
+        if ((catastrophe === "ASTEROID" || catastrophe === "VOLCANO" || catastrophe === "VIRUS") && popCount === 0) {
+            return "The recent disaster has crippled your population. It didn’t wipe you out, but when a species has dwindled in size, any small problem can lead to extinction."
         }
 
         if (catastrophe === "COLD") {
@@ -305,6 +349,7 @@ const Game = () => {
         setShowStarterDisplay(true);
         setButtonText("Play Game");
         setEndGame(false);
+        setEnvironmentalChanges(["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "ASTEROID", "VIRUS", "VOLCANO"]);
     }
 
     return (
