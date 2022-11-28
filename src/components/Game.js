@@ -8,21 +8,6 @@ import HintBook from "./HintBook";
 import Button from "./Button";
 import "./Game.css";
 
-// function Game() {
-//     const [page, setPage] = useState(0);
-//     const [gameData, setGameData] = useState({
-//         yearsLeft: 1000000,
-//         populationCount: 6,
-//     });
-
-//     const Page = [
-//         Logo,
-//         InitialMutation,
-//         SurvivalSimulation,
-//     ][currentPosition];
-
-//     return <div><Page goToNext={() => setPage(page + 1)} /></div>;
-// }
 class Traits {
     constructor(legs, size, horns, hair, camo) {
         this.legs = legs;
@@ -88,6 +73,9 @@ const Game = () => {
     }
 
     const playGame = () => {
+        const environmentalCopy = [...environmentalChanges];
+        const currentCatastrophe = randomElement(environmentalCopy);
+
         if (currentRound === 1 && population.length === 3) {
             initialRound();
             setCurrentRound(2);
@@ -96,7 +84,7 @@ const Game = () => {
         }
 
         if (currentRound === 2) {
-            simGenerations(randomElement(environmentalChanges));
+            simGenerations(currentCatastrophe);
 
             if (popCount === 0) {
                 darwinTexts();
@@ -105,10 +93,9 @@ const Game = () => {
                 darwinTexts();
                 setYears(138888);
                 setCurrentRound(3);
-                setCatastrophe(randomElement(environmentalChanges));
-                removeCatastrophe(environmentalChanges, catastrophe);
-                console.log(catastrophe);
-                console.log(environmentalChanges);
+                setCatastrophe(currentCatastrophe);
+                removeCatastrophe(environmentalCopy, currentCatastrophe);
+                setEnvironmentalChanges(environmentalCopy);
             }
         }
 
@@ -122,10 +109,9 @@ const Game = () => {
                 darwinTexts();
                 setYears(416666);
                 setCurrentRound(4);
-                setCatastrophe(randomElement(environmentalChanges));
-                removeCatastrophe(environmentalChanges, catastrophe);
-                console.log(catastrophe);
-                console.log(environmentalChanges);
+                setCatastrophe(currentCatastrophe);
+                removeCatastrophe(environmentalCopy, currentCatastrophe);
+                setEnvironmentalChanges(environmentalCopy);
             }
         }
 
@@ -139,10 +125,9 @@ const Game = () => {
                 darwinTexts();
                 setYears(694444);
                 setCurrentRound(5);
-                setCatastrophe(randomElement(environmentalChanges));
-                removeCatastrophe(environmentalChanges, catastrophe);
-                console.log(catastrophe);
-                console.log(environmentalChanges);
+                setCatastrophe(currentCatastrophe);
+                removeCatastrophe(environmentalCopy, currentCatastrophe);
+                setEnvironmentalChanges(environmentalCopy);
             }
         }
 
@@ -279,61 +264,33 @@ const Game = () => {
     const darwinTexts = () => {
         if (years === 1 && population.length === 6) {
             return "You’ve made your selections. Now, as the environment changes, the animals with traits most suited to the new environment will thrive. Your goal: help your species survive the next 1 million years."
-        }
-
-        if (popCount > 0 && buttonText === "Play Again?") {
+        } else if (popCount > 0 && buttonText === "Play Again?") {
             return "Wow, your species survived for a million years! Who knows, one day their descendants could rule the planet. I hope you gained some insight into how natural selection works. Care to try again?"
-        }
-
-        if (years === 1) {
+        } else if (years === 1) {
             return "The traits you choose will affect your species’ chance of survival, depending on the environment they will face. A little hint – diversity can ensure survival against even the harshest elements."
-        }
-
-        if (catastrophe === "COLD" && popCount === 0) {
+        } else if (catastrophe === "COLD" && popCount === 0) {
             return "Sorry, your species just couldn’t stay warm in this cold, harsh environment. If they had their longer hair, they might have fared better. Would you like to start from the beginning?"
-        }
-
-        if (catastrophe === "HOT" && popCount === 0) {
+        } else if (catastrophe === "HOT" && popCount === 0) {
             return "This heat is a killer. Your species found that out when they overheated under all that fur. Care to start again from the beginning?"
-        }
-
-        if (catastrophe === "PREDATORS" && popCount === 0) {
+        } else if (catastrophe === "PREDATORS" && popCount === 0) {
             return "Oh, the horror. Your yetis just didn’t have the long, quick legs, horns, and stripes to avoid the nasty claws of those predators. Would you like to start from the beginning?"
-        }
-
-        if (catastrophe === "TALL_PLANTS" && popCount === 0) {
+        } else if (catastrophe === "TALL_PLANTS" && popCount === 0) {
             return "Your yetis saw the food, but they couldn't reach them. A tragedy that may have been avoided if they had longer legs and horns. Would you like to start from the beginning?"
-        }
-
-        if ((catastrophe === "ASTEROID" || catastrophe === "VOLCANO" || catastrophe === "VIRUS") && popCount === 0) {
+        } else if ((catastrophe === "ASTEROID" || catastrophe === "VOLCANO" || catastrophe === "VIRUS") && popCount === 0) {
             return "The recent disaster has crippled your population. It didn’t wipe you out, but when a species has dwindled in size, any small problem can lead to extinction."
-        }
-
-        if (catastrophe === "COLD") {
+        } else if (catastrophe === "COLD") {
             return "Brrr, it’s getting colder. We might be entering an ice age. Some animals will die off if they can’t stay warm. Would you like to introduce a mutation?"
-        }
-
-        if (catastrophe === "HOT") {
+        } else if (catastrophe === "HOT") {
             return "Is it just me, or is it getting hot in here? I think we may be entering a period of global warming. Would you like to introduce a mutation?"
-        }
-
-        if (catastrophe === "PREDATORS") {
+        } else if (catastrophe === "PREDATORS") {
             return "The only thing we have to fear is fear itself… oh, and the hungry yeti predators invading the area. Would you like to introduce a mutation?"
-        }
-
-        if (catastrophe === "TALL_PLANTS") {
+        } else if (catastrophe === "TALL_PLANTS") {
             return "A delicious fruit has begun to grow on tall stalks in your habitat. Are your animals tall enough? Would you like to introduce a mutation?"
-        }
-
-        if (catastrophe === "ASTEROID") {
+        } else if (catastrophe === "ASTEROID") {
             return "Emergency! The planet has just been hit by an asteroid! It’s a cataclysmic event – unfortunately there’s no time to use a Life Preserver. Hopefully, your species are hardy enough to survive."
-        }
-
-        if (catastrophe === "VOLCANO") {
+        } else if (catastrophe === "VOLCANO") {
             return "Run for cover! The volcano is erupting! It’s a cataclysmic event – unfortunately, there’s no time to introduce a mutation. Hopefully your species can survive."
-        }
-
-        if (catastrophe === "VIRUS") {
+        } else if (catastrophe === "VIRUS") {
             return "Bad news! A deadly virus is quickly spreading through your species. It’s a cataclysmic event – unfortunately, there’s no time to introduce a mutation. Hopefully your species can survive."
         }
     }
