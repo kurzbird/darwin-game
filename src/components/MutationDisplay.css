@@ -1,9 +1,21 @@
 .mutation-display {
     border-style: solid;
     border-color: lightgray;
-    min-width: 600px;
+
+    width: 600px;
 }
 
 .display-header {
     color: navy;
+}
+
+.random-mutations {
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-rows: 5% 30% 30% 30% 5%;
+    grid-column-start: 2;
+    grid-column-end: 5;
+
+    min-width: 100px;
+    min-height: 200px;
 }
