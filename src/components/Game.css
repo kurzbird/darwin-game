@@ -5,6 +5,92 @@
     flex-direction: column;
 }
 
+.population-container {
+    /* display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-rows: 5% 30% 30% 30% 5%;
+
+    min-width: 100px;
+    min-height: 200px; */
+    position: relative;
+    width: 1600px auto;
+    height: 300px;
+
+    color: navy;
+}
+
+.position-1 {
+    position: absolute;
+    top: 250px;
+    right: 475px;
+}
+
+.position-2 {
+    position: absolute;
+    top: 50px;
+    right: 500px;
+}
+
+.position-3 {
+    position: absolute;
+    top: 150px;
+    right: 425px;
+}
+
+.position-4 {
+    position: absolute;
+    top: 25px;
+    left: 750px;
+}
+
+.position-5 {
+    position: absolute;
+    top: 120px;
+    left: 650px;
+}
+
+.position-6 {
+    position: absolute;
+    top: 50px;
+    left: 475px;
+}
+
+.position-7 {
+    position: absolute;
+    top: 95px;
+    left: 880px;
+}
+
+.position-8 {
+    position: absolute;
+    top: 165px;
+    left: 920px;
+}
+
+.position-9 {
+    position: absolute;
+    top: 260px;
+    left: 650px;
+}
+
+.position-10 {
+    position: absolute;
+    top: 180px;
+    left: 500px;
+}
+
+.position-11 {
+    position: absolute;
+    top: 90px;
+    left: 560px;
+}
+
+.position-12 {
+    position: absolute;
+    top: 200px;
+    left: 800px;
+}
+
 .text-display {
     border-style: solid;
     border-color: lightgray;

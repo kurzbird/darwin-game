@@ -309,6 +309,10 @@ const Game = () => {
         setEnvironmentalChanges(["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "ASTEROID", "VIRUS", "VOLCANO"]);
     }
 
+    const randomPosition = (i) => {
+        return 'position-' + (i+1);
+    }
+
     return (
         <section>
             <h1>Are We There, Yeti?</h1>
@@ -316,6 +320,13 @@ const Game = () => {
                 {showStarterDisplay && <h3 className="instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h3>}
                 {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!"></MutationDisplay>}
             </div>
+
+            <div className="population-container">
+                <div className="individual-yetis">
+                    {population.map((yeti, i) => <span className={randomPosition(i)} key={i}> Yeti {i + 1}: 🦍 </span>)}
+                </div>
+            </div>
+
             <h3>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.horns}, {yeti.hair}, {yeti.camo} <br /></span>)} </h3>
             <h3>Current Population Count: {popCount}</h3>
             <h3>Extra Mutations Remaining: {lifelines}</h3>
