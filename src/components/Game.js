@@ -310,31 +310,32 @@ const Game = () => {
     }
 
     const randomPosition = (i) => {
-        return 'position-' + (i+1);
+        return 'position-' + (i + 1);
     }
 
     return (
         <section>
-            <h1>Are We There, Yeti?</h1>
-            <div className="display-container">
-                {showStarterDisplay && <h3 className="instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h3>}
-                {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!"></MutationDisplay>}
-            </div>
+            <h2>Are We There, Yeti?</h2>
+            {showStarterDisplay && <h4 className="instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h4>}
 
             <div className="population-container">
+                <div className="display-container">
+                    {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!"></MutationDisplay>}
+                </div>
                 <div className="individual-yetis">
                     {population.map((yeti, i) => <span className={randomPosition(i)} key={i}> Yeti {i + 1}: 🦍 </span>)}
                 </div>
             </div>
 
-            <h3>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.horns}, {yeti.hair}, {yeti.camo} <br /></span>)} </h3>
-            <h3>Current Population Count: {popCount}</h3>
-            <h3>Extra Mutations Remaining: {lifelines}</h3>
-            <h3>Year: {years}</h3>
-            <h3>Catastrophic Event: {catastrophe}</h3>
+            <h4>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.horns}, {yeti.hair}, {yeti.camo} <br /></span>)} <br />
+                Current Population Count: {popCount} <br />
+                Extra Mutations Remaining: {lifelines} <br />
+                Year: {years} <br />
+                Catastrophic Event: {catastrophe} <br />
+            </h4>
             <div className="display-container">
                 <div className="text-display">
-                    <h3 className="instructions">Darwin the Yeti: {darwinTexts()}</h3>
+                    <h4 className="instructions">Darwin the Yeti: {darwinTexts()}</h4>
                 </div>
             </div>
             <Button text={buttonText} onClick={buttonText === "Play Again?" ? resetGame : playGame} />

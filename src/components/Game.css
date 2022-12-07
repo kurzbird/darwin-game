@@ -12,6 +12,7 @@
 
     min-width: 100px;
     min-height: 200px; */
+    display: flex;
     position: relative;
     width: 1600px auto;
     height: 300px;
