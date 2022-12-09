@@ -1,6 +1,7 @@
 import "./HintBook.css";
+import Button from "./Button";
 
-const HintBook = () => {
+const HintBook = ({ closeDisplay }) => {
     return (
         <div className="hints">
             <div className="hints-inner">
@@ -16,6 +17,10 @@ const HintBook = () => {
 
                     <h3>Hairless</h3>
                     <p>Pros: Cooler in heat <br /> Cons: Weakness to cold</p>
+                </div>
+
+                <div className="center">
+                    <Button text="Close" onClick={closeDisplay}/>
                 </div>
 
                 <div className="right">

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "./Button";
 import "./MutationDisplay.css";
 
-function MutationDisplay({ genePool, onSelectMutation, text, refreshGenePool }) {
+function MutationDisplay({ genePool, onSelectMutation, text, refreshGenePool, closeDisplay, starterDisplay }) {
 
     const [selections, setSelections] = useState([])
     const [mutationsToDisplay, setMutationsToDisplay] = useState(genePool)
@@ -25,6 +25,7 @@ function MutationDisplay({ genePool, onSelectMutation, text, refreshGenePool }) 
                 </div>
 
                 <Button text="More Mutations" onClick={moreMutations} />
+                {!starterDisplay && <Button text="Close" onClick={closeDisplay}/>}
             </div>
         </div>
     )

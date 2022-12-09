@@ -355,9 +355,9 @@ const Game = () => {
                             {population.map((yeti, i) => <span className={randomPosition(i)} key={i}> Yeti {i + 1}: 🦍 </span>)}
                         </div>
                         <div className="display-container">
-                            {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!"></MutationDisplay>}
-                            {showMutationDisplay && <MutationDisplay genePool={mutantGenePool} onSelectMutation={handleSelect} text="Mutation Display - click to add a mutation to population!" refreshGenePool={mutantGenePool}></MutationDisplay>}
-                            {showHints && <HintBook />}
+                            {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!" closeDisplay={openDisplay} starterDisplay={showStarterDisplay}></MutationDisplay>}
+                            {showMutationDisplay && <MutationDisplay genePool={mutantGenePool} onSelectMutation={handleSelect} text="Mutation Display - click to add a mutation to population!" refreshGenePool={mutantGenePool} closeDisplay={openDisplay}></MutationDisplay>}
+                            {showHints && <HintBook closeDisplay={openHints}/>}
                         </div>
                     </div>
                 </div>
