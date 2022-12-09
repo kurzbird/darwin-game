@@ -18,12 +18,14 @@ function MutationDisplay({ genePool, onSelectMutation, text, refreshGenePool }) 
 
     return (
         <div className="mutation-display">
-            <h4 className="display-header">{text} <br /><br /></h4>
-            <div className="random-mutations">
-                {mutationsToDisplay.map((Mutation, i) => <p onClick={() => selectMutation(Mutation)} key={i}>Mutation {i + 1}: {Mutation.legs}, {Mutation.size}, {Mutation.horns}, {Mutation.hair}, {Mutation.camo}</p>)}
-            </div>
+            <div className="mutation-display-inner">
+                <h4 className="display-header">{text} <br /><br /></h4>
+                <div className="random-mutations">
+                    {mutationsToDisplay.map((Mutation, i) => <p onClick={() => selectMutation(Mutation)} key={i}>Mutation {i + 1}: {Mutation.legs}, {Mutation.size}, {Mutation.horns}, {Mutation.hair}, {Mutation.camo}</p>)}
+                </div>
 
-            <Button text="More Mutations" onClick={moreMutations} />
+                <Button text="More Mutations" onClick={moreMutations} />
+            </div>
         </div>
     )
 }

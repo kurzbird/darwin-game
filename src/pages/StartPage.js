@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import "./StartPage.css";
+import darwin from "../assets/darwin.png";
 
 const StartPage = () => {
     return (
@@ -7,6 +8,7 @@ const StartPage = () => {
             <div className='text-container'>
                 <div className="text">
                     <h1>Are We There, Yeti?</h1>
+                    <img src={darwin} alt="darwin" />
                     <h3>Introduction:</h3>
                     <p>Welcome to “Are We There, Yeti?” – the game based on Charles Darwin's principles of natural selection.
                         Your species will have to survive a changing – and sometimes cruel – environment.</p>

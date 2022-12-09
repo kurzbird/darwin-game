@@ -41,6 +41,19 @@ function randomElement(array) {
     return array[Math.floor(Math.random() * array.length)];
 };
 
+let openPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
+// Shuffles an array in place; Fisher-Yates shuffle algorithm
+const shuffle = (a) => {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+let shuffled = shuffle(openPositions);
+
 const Game = () => {
     const [popCount, setPopCount] = useState(3);
     const [currentRound, setCurrentRound] = useState(1);
@@ -53,6 +66,7 @@ const Game = () => {
     const [endGame, setEndGame] = useState(false);
     const [showHints, setShowHints] = useState(false);
     const [environmentalChanges, setEnvironmentalChanges] = useState(["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "ASTEROID", "VIRUS", "VOLCANO"]);
+    const [shuffledPositions, setShuffledPositions] = useState(shuffled);
 
     useEffect(() => {
         setPopCount(() => population.length);
@@ -103,6 +117,7 @@ const Game = () => {
                 setCatastrophe(currentCatastrophe);
                 removeCatastrophe(environmentalCopy, currentCatastrophe);
                 setEnvironmentalChanges(environmentalCopy);
+                setShuffledPositions(shuffle(openPositions));
             }
         }
 
@@ -119,6 +134,7 @@ const Game = () => {
                 setCatastrophe(currentCatastrophe);
                 removeCatastrophe(environmentalCopy, currentCatastrophe);
                 setEnvironmentalChanges(environmentalCopy);
+                setShuffledPositions(shuffle(openPositions));
             }
         }
 
@@ -135,6 +151,7 @@ const Game = () => {
                 setCatastrophe(currentCatastrophe);
                 removeCatastrophe(environmentalCopy, currentCatastrophe);
                 setEnvironmentalChanges(environmentalCopy);
+                setShuffledPositions(shuffle(openPositions));
             }
         }
 
@@ -314,10 +331,15 @@ const Game = () => {
         setButtonText("Play Game");
         setEndGame(false);
         setEnvironmentalChanges(["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "ASTEROID", "VIRUS", "VOLCANO"]);
+        setShuffledPositions(shuffle(openPositions));
     }
 
     const randomPosition = (i) => {
-        return 'position-' + (i + 1);
+        if (currentRound < 3) {
+            return 'position-' + (i + 1);
+        } else {
+            return 'position-' + shuffledPositions[i];
+        }
     }
 
     return (
@@ -329,16 +351,18 @@ const Game = () => {
 
                 <div className="display-container">
                     <div className="population-container">
+                        <div className="individual-yetis">
+                            {population.map((yeti, i) => <span className={randomPosition(i)} key={i}> Yeti {i + 1}: 🦍 </span>)}
+                        </div>
                         <div className="display-container">
                             {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!"></MutationDisplay>}
                             {showMutationDisplay && <MutationDisplay genePool={mutantGenePool} onSelectMutation={handleSelect} text="Mutation Display - click to add a mutation to population!" refreshGenePool={mutantGenePool}></MutationDisplay>}
                             {showHints && <HintBook />}
                         </div>
-                        <div className="individual-yetis">
-                            {population.map((yeti, i) => <span className={randomPosition(i)} key={i}> Yeti {i + 1}: 🦍 </span>)}
-                        </div>
                     </div>
                 </div>
+
+                <h5>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.horns}, {yeti.hair}, {yeti.camo} <br /></span>)} <br /></h5>
 
                 <div className="darwin-text-container">
                     <img src={darwin} alt="darwin" />
@@ -353,12 +377,10 @@ const Game = () => {
                     </div>
                 </div>
 
-                <h4>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.horns}, {yeti.hair}, {yeti.camo} <br /></span>)} <br /></h4>
-
                 {/* <Button text="Game Result Popup" onClick={() => setEndGame(true)} />
-            <GameResult trigger={endGame} setTrigger={setEndGame}>
-                <h3 style={{ color: "black" }}>Game Over!</h3>
-            </GameResult> */}
+                <GameResult trigger={endGame} setTrigger={setEndGame}>
+                    <h3 style={{ color: "black" }}>Game Over!</h3>
+                </GameResult> */}
             </div>
         </section>
     )
