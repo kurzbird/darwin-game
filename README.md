@@ -4,7 +4,7 @@
 # To-Do:
 - Intro: Darwin Landing Page        Static page with 2 buttons
 - Learn about NS                    Static header + 3 part explainer
-- Art for creatures
+- Art for creatures and background
 
 
 # Game:
@@ -29,6 +29,7 @@
     - Should be used multiple times (population changes as it goes)
 
 - Generation = one reproduction round + one survival round
+- Have 5-15 generations per user turn
 
 - Add environmental events - 60% max chance of survival
     - Cold (60% max)
