@@ -3,8 +3,11 @@
     justify-content: space-around;
 
     border-style: solid;
-    border-color: lightgray;
-    min-width: 600px;
+    border-color: navy;
+    background-color: lightgray;
+
+    width: 600px;
+    height: 400px;
 }
 
 .left {

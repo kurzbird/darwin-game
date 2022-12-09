@@ -1,8 +1,10 @@
 .mutation-display {
     border-style: solid;
-    border-color: lightgray;
+    border-color: navy;
+    background-color: lightgray;
 
     width: 600px;
+    height: 400px;
 }
 
 .display-header {
@@ -12,9 +14,10 @@
 .random-mutations {
     display: grid;
     grid-template-columns: 33.3% 33.3% 33.3%;
-    grid-template-rows: 5% 30% 30% 30% 5%;
+    grid-template-rows: 33.3% 33.3% 33.3%;
     grid-column-start: 2;
     grid-column-end: 5;
+    row-gap: 35px;
 
     min-width: 100px;
     min-height: 200px;

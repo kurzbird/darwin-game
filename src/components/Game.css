@@ -1,3 +1,10 @@
+.game-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .display-container {
     display: flex;
     justify-content: center;
@@ -5,92 +12,126 @@
     flex-direction: column;
 }
 
+.darwin-text-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1000px;
+}
+
 /* population container is also the user's game screen */
 .population-container {
     display: flex;
     position: relative;
-    width: 1600px auto;
-    height: 350px;
-    padding-left: 75px;
-    padding-right: 75px;
-    margin: 25px;
+    width: 1000px;
+    height: 480px;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
 
-    /* border-style: solid;
-    border-color: lightgray; */
+    border-style: solid;
+    border-color: darkblue;
 
     color: navy;
 }
 
+/* Yeti 2 is closest to top border, 80px
+Yeti 16 is closest to bottom, 380px */
 .position-1 {
     position: absolute;
-    top: 250px;
-    right: 475px;
+    top: 320px;
+    right: 180px;
 }
 
 .position-2 {
     position: absolute;
-    top: 50px;
-    right: 500px;
+    top: 80px;
+    right: 250px;
 }
 
 .position-3 {
     position: absolute;
-    top: 150px;
-    right: 425px;
+    top: 200px;
+    right: 125px;
 }
 
 .position-4 {
     position: absolute;
-    top: 25px;
-    left: 750px;
+    top: 230px;
+    left: 110px;
 }
 
 .position-5 {
     position: absolute;
-    top: 120px;
-    left: 650px;
+    top: 340px;
+    left: 375px;
 }
 
 .position-6 {
     position: absolute;
-    top: 50px;
-    left: 475px;
+    top: 215px;
+    left: 500px;
 }
 
 .position-7 {
     position: absolute;
-    top: 95px;
-    left: 880px;
+    top: 85px;
+    left: 180px;
 }
 
 .position-8 {
     position: absolute;
-    top: 165px;
-    left: 920px;
+    top: 315px;
+    left: 265px;
 }
 
 .position-9 {
     position: absolute;
-    top: 260px;
-    left: 650px;
+    top: 360px;
+    left: 150px;
 }
 
 .position-10 {
     position: absolute;
-    top: 180px;
-    left: 500px;
+    top: 100px;
+    left: 455px;
 }
 
 .position-11 {
     position: absolute;
-    top: 90px;
-    left: 560px;
+    top: 150px;
+    left: 590px;
 }
 
 .position-12 {
     position: absolute;
-    top: 200px;
-    left: 800px;
+    top: 345px;
+    left: 850px;
+}
+
+.position-13 {
+    position: absolute;
+    top: 185px;
+    left: 280px;
+}
+
+.position-14 {
+    position: absolute;
+    top: 140px;
+    left: 70px;
+}
+
+.position-15 {
+    position: absolute;
+    top: 100px;
+    right: 70px;
+}
+
+.position-16 {
+    position: absolute;
+    top: 380px;
+    right: 325px;
 }
 
 .text-display {
@@ -102,4 +143,14 @@
 
 .instructions {
     color: #800020;
+}
+
+img {
+    max-height: 100px;
+}
+
+pre {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    font-size: medium;
 }

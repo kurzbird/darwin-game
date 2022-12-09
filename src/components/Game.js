@@ -7,6 +7,7 @@ import GameResult from "./GameResult";
 import HintBook from "./HintBook";
 import Button from "./Button";
 import "./Game.css";
+import darwin from "../assets/darwin.png";
 
 class Traits {
     constructor(legs, size, horns, hair, camo) {
@@ -19,6 +20,12 @@ class Traits {
 };
 
 let population = [];
+
+// for all 16 position testing, uncomment below
+// let population = [createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring()]
+
+// for initial 6 positions testing
+// let population = [createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring()];
 
 function createRandomOffspring() {
     return new Traits(
@@ -315,40 +322,43 @@ const Game = () => {
 
     return (
         <section>
-            <h2>Are We There, Yeti?</h2>
-            {showStarterDisplay && <h4 className="instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h4>}
+            <div className="game-screen">
+                <h2>Are We There, Yeti?</h2>
+                {showStarterDisplay && <h4 className="instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h4>}
+                {!showStarterDisplay && <pre className="instructions">Extra Mutations Remaining: {lifelines}        Current Population Count: {popCount}        Catastrophic Event: {catastrophe}        Year: {years}</pre>}
 
-            <div className="population-container">
                 <div className="display-container">
-                    {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!"></MutationDisplay>}
+                    <div className="population-container">
+                        <div className="display-container">
+                            {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!"></MutationDisplay>}
+                            {showMutationDisplay && <MutationDisplay genePool={mutantGenePool} onSelectMutation={handleSelect} text="Mutation Display - click to add a mutation to population!" refreshGenePool={mutantGenePool}></MutationDisplay>}
+                            {showHints && <HintBook />}
+                        </div>
+                        <div className="individual-yetis">
+                            {population.map((yeti, i) => <span className={randomPosition(i)} key={i}> Yeti {i + 1}: 🦍 </span>)}
+                        </div>
+                    </div>
                 </div>
-                <div className="individual-yetis">
-                    {population.map((yeti, i) => <span className={randomPosition(i)} key={i}> Yeti {i + 1}: 🦍 </span>)}
-                </div>
-            </div>
 
-            <h4>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.horns}, {yeti.hair}, {yeti.camo} <br /></span>)} <br />
-                Current Population Count: {popCount} <br />
-                Extra Mutations Remaining: {lifelines} <br />
-                Year: {years} <br />
-                Catastrophic Event: {catastrophe} <br />
-            </h4>
-            <div className="display-container">
-                <div className="text-display">
-                    <h4 className="instructions">Darwin the Yeti: {darwinTexts()}</h4>
+                <div className="darwin-text-container">
+                    <img src={darwin} alt="darwin" />
+                    <div className="text-display">
+                        <h4 className="instructions">Darwin the Yeti: {darwinTexts()}</h4>
+                    </div>
+                    <div className="buttons-container">
+                        <Button text={buttonText} onClick={buttonText === "Play Again?" ? resetGame : playGame} />
+                        <Button text="Reset Game" onClick={resetGame} />
+                        <Button text="Show Mutation Display" onClick={openDisplay} />
+                        <Button text="Hints" onClick={openHints} />
+                    </div>
                 </div>
-            </div>
-            <Button text={buttonText} onClick={buttonText === "Play Again?" ? resetGame : playGame} />
-            <Button text="Game Result Popup" onClick={() => setEndGame(true)} />
+
+                <h4>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.horns}, {yeti.hair}, {yeti.camo} <br /></span>)} <br /></h4>
+
+                {/* <Button text="Game Result Popup" onClick={() => setEndGame(true)} />
             <GameResult trigger={endGame} setTrigger={setEndGame}>
                 <h3 style={{ color: "black" }}>Game Over!</h3>
-            </GameResult>
-            <Button text="Reset Game" onClick={resetGame} />
-            <Button text="Show Mutation Display" onClick={openDisplay} />
-            <Button text="Hints" onClick={openHints} />
-            <div className="display-container">
-                {showMutationDisplay && <MutationDisplay genePool={mutantGenePool} onSelectMutation={handleSelect} text="Mutation Display - click to add a mutation to population!" refreshGenePool={mutantGenePool}></MutationDisplay>}
-                {showHints && <HintBook />}
+            </GameResult> */}
             </div>
         </section>
     )
