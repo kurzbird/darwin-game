@@ -132,6 +132,7 @@ Yeti 16 is closest to bottom, 380px */
     position: absolute;
     top: 380px;
     right: 325px;
+    max-width: 100%;
 }
 
 .text-display {
