@@ -97,6 +97,11 @@ const Game = () => {
         const environmentalCopy = [...environmentalChanges];
         const currentCatastrophe = randomElement(environmentalCopy);
 
+        if (showHints || showMutationDisplay) {
+            setShowHints(false);
+            setShowMutationDisplay(false);
+        }
+
         if (currentRound === 1 && population.length === 3) {
             initialRound();
             setCurrentRound(2);
@@ -357,7 +362,7 @@ const Game = () => {
                         <div className="display-container">
                             {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!" closeDisplay={openDisplay} starterDisplay={showStarterDisplay}></MutationDisplay>}
                             {showMutationDisplay && <MutationDisplay genePool={mutantGenePool} onSelectMutation={handleSelect} text="Mutation Display - click to add a mutation to population!" refreshGenePool={mutantGenePool} closeDisplay={openDisplay}></MutationDisplay>}
-                            {showHints && <HintBook closeDisplay={openHints}/>}
+                            {showHints && currentRound > 1 && <HintBook closeDisplay={openHints}/>}
                         </div>
                     </div>
                 </div>
