@@ -59,3 +59,8 @@
         - Legs: short 10% chance of living
         - Size: thin 20% chance of living
         - Horns: long 10% chance of living
+
+# To Deploy to GH Pages:
+1. Change scripts in package.json to "build": "react-scripts build && rm -rf docs && mv build docs",
+2. Go to GH repo -> Settings -> Pages and Branch "main" to "/docs"
+3. Deploy changes with "npm run build" + commit + push
