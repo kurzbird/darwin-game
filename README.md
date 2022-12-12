@@ -23,6 +23,7 @@
 - One reproduction round
     - Pick 2 random animals to produce offspring with mixed traits
     - Reproduction rate = 1.5x
+    - Carrying capacity = 16 max
 
 - One survival round
     - Use environmental event to filter population
@@ -61,6 +62,9 @@
         - Horns: long 10% chance of living
 
 # To Deploy to GH Pages:
+Initial setup
 1. Change scripts in package.json to "build": "react-scripts build && rm -rf docs && mv build docs",
 2. Go to GH repo -> Settings -> Pages and Branch "main" to "/docs"
+
+For all future changes
 3. Deploy changes with "npm run build" + commit + push

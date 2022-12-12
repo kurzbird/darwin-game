@@ -68,9 +68,13 @@ const Game = () => {
     const [environmentalChanges, setEnvironmentalChanges] = useState(["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "ASTEROID", "VIRUS", "VOLCANO"]);
     const [shuffledPositions, setShuffledPositions] = useState(shuffled);
 
-    useEffect(() => {
-        setPopCount(() => population.length);
-    }, [popCount]);
+    // useEffect(() => {
+    //     population.map((yeti, i) => {
+    //         setTimeout(() => {
+    //             <span className={randomPosition(i)} key={i}> Yeti {i + 1}: 🦍 </span>
+    //         }, 2000);
+    //     });
+    // }, [population]);
 
     const openHints = () => {
         setShowHints(!showHints);
@@ -199,8 +203,12 @@ const Game = () => {
 
     function reproductionRound() {
         const reproductionRate = population.length / 2;
-        for (let i = 1; i <= reproductionRate; i++) {
-            population.push(singleOffspring(randomElement(population), randomElement(population)));
+
+        // simulates carrying capacity is a max of 16 yetis
+        if (population.length < 16) {
+            for (let i = 1; i <= reproductionRate; i++) {
+                population.push(singleOffspring(randomElement(population), randomElement(population)));
+            }
         }
         return population;
     }
@@ -324,6 +332,14 @@ const Game = () => {
         }
     }
 
+    const randomPosition = (i) => {
+        if (currentRound < 3) {
+            return 'position-' + (i + 1);
+        } else {
+            return 'position-' + shuffledPositions[i];
+        }
+    }
+
     const resetGame = () => {
         population = [];
         setPopCount(0);
@@ -337,14 +353,6 @@ const Game = () => {
         setEndGame(false);
         setEnvironmentalChanges(["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "ASTEROID", "VIRUS", "VOLCANO"]);
         setShuffledPositions(shuffle(openPositions));
-    }
-
-    const randomPosition = (i) => {
-        if (currentRound < 3) {
-            return 'position-' + (i + 1);
-        } else {
-            return 'position-' + shuffledPositions[i];
-        }
     }
 
     return (
