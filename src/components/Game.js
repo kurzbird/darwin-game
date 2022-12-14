@@ -63,18 +63,23 @@ const Game = () => {
     const [showMutationDisplay, setShowMutationDisplay] = useState(false);
     const [showStarterDisplay, setShowStarterDisplay] = useState(true);
     const [buttonText, setButtonText] = useState("Play Game")
-    const [endGame, setEndGame] = useState(false);
+    const [endGame, setEndGame] = useState(null);
     const [showHints, setShowHints] = useState(false);
     const [environmentalChanges, setEnvironmentalChanges] = useState(["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "ASTEROID", "VIRUS", "VOLCANO"]);
     const [shuffledPositions, setShuffledPositions] = useState(shuffled);
+    // const [genCount, setGenCount] = useState(0);
 
     // useEffect(() => {
-    //     population.map((yeti, i) => {
-    //         setTimeout(() => {
-    //             <span className={randomPosition(i)} key={i}> Yeti {i + 1}: 🦍 </span>
-    //         }, 2000);
-    //     });
-    // }, [population]);
+    //     const mapPop = () => {
+    //         population.map((yeti, i) => {
+    //             setTimeout(() => {
+    //                 <span className={randomPosition(i)} key={i}> Yeti {i + 1}: 🦍 </span>
+    //             }, 2000);
+    //         });
+    //     }; mapPop();
+    // },
+    //     [population]
+    // );
 
     const openHints = () => {
         setShowHints(!showHints);
@@ -119,6 +124,7 @@ const Game = () => {
             if (popCount === 0) {
                 darwinTexts();
                 setButtonText("Play Again?");
+                setEndGame(false);
             } else {
                 darwinTexts();
                 setYears(138888);
@@ -136,6 +142,7 @@ const Game = () => {
             if (popCount === 0) {
                 darwinTexts();
                 setButtonText("Play Again?");
+                setEndGame(false);
             } else {
                 darwinTexts();
                 setYears(416666);
@@ -153,6 +160,7 @@ const Game = () => {
             if (popCount === 0) {
                 darwinTexts();
                 setButtonText("Play Again?");
+                setEndGame(false);
             } else {
                 darwinTexts();
                 setYears(694444);
@@ -170,8 +178,10 @@ const Game = () => {
             setButtonText("Play Again?");
 
             if (popCount === 0) {
+                setEndGame(false);
                 darwinTexts();
             } else {
+                setEndGame(true);
                 setYears(1000000);
                 darwinTexts();
             }
@@ -350,7 +360,7 @@ const Game = () => {
         setShowMutationDisplay(false);
         setShowStarterDisplay(true);
         setButtonText("Play Game");
-        setEndGame(false);
+        setEndGame(null);
         setEnvironmentalChanges(["COLD", "HOT", "PREDATORS", "TALL_PLANTS", "ASTEROID", "VIRUS", "VOLCANO"]);
         setShuffledPositions(shuffle(openPositions));
     }
@@ -368,9 +378,10 @@ const Game = () => {
                             {population.map((yeti, i) => <span className={randomPosition(i)} key={i}> Yeti {i + 1}: 🦍 </span>)}
                         </div>
                         <div className="display-container">
+                            {buttonText === "Play Again?" && <GameResult result={endGame} />}
                             {showStarterDisplay && <MutationDisplay genePool={randomMutations} onSelectMutation={handleStarterSelect} refreshGenePool={randomMutations} text="Starter Population - click to add a mutation to population!" closeDisplay={openDisplay} starterDisplay={showStarterDisplay}></MutationDisplay>}
                             {showMutationDisplay && <MutationDisplay genePool={mutantGenePool} onSelectMutation={handleSelect} text="Mutation Display - click to add a mutation to population!" refreshGenePool={mutantGenePool} closeDisplay={openDisplay}></MutationDisplay>}
-                            {showHints && currentRound > 1 && <HintBook closeDisplay={openHints}/>}
+                            {showHints && currentRound > 1 && <HintBook closeDisplay={openHints} />}
                         </div>
                     </div>
                 </div>
@@ -389,11 +400,6 @@ const Game = () => {
                         <Button text="Hints" onClick={openHints} />
                     </div>
                 </div>
-
-                {/* <Button text="Game Result Popup" onClick={() => setEndGame(true)} />
-                <GameResult trigger={endGame} setTrigger={setEndGame}>
-                    <h3 style={{ color: "black" }}>Game Over!</h3>
-                </GameResult> */}
             </div>
         </section>
     )

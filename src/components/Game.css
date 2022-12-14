@@ -23,6 +23,7 @@
 .population-container {
     display: flex;
     position: relative;
+
     width: 1000px;
     height: 480px;
     padding-left: 25px;
