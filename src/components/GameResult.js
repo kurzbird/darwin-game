@@ -2,6 +2,7 @@ import React from "react";
 import "./GameResult.css";
 import win from "../assets/win.png";
 import lose from "../assets/lose.png";
+import { AnimatePresence, motion } from 'framer-motion';
 
 const GameResult = ({ result }) => {
 
@@ -14,11 +15,20 @@ const GameResult = ({ result }) => {
     }
 
     return (
-        <div className="game-result">
-            <div className="game-result-inner">
-                {resultScreen(result)}
-            </div>
-        </div>
+        <AnimatePresence>
+            <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0 }}
+                className="popup"
+            >
+                <div className="game-result">
+                    <div className="game-result-inner">
+                        {resultScreen(result)}
+                    </div>
+                </div>
+            </motion.div>
+        </AnimatePresence>
     )
 }
 
