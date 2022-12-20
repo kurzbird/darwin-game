@@ -5,7 +5,7 @@ import lose from "../assets/lose.png";
 import { AnimatePresence, motion } from 'framer-motion';
 import Backdrop from "./Backdrop";
 
-const GameResult = ({ result }) => {
+const GameResult = ({ result, resetGame }) => {
 
     const resultScreen = (result) => {
         if (result) {
@@ -15,13 +15,37 @@ const GameResult = ({ result }) => {
         }
     }
 
+    const dropIn = {
+        hidden: {
+            y: "-100vh",
+            opacity: 0,
+        },
+        visible: {
+            y: "0",
+            opacity: 1,
+            transition: {
+                duration: 0.1,
+                type: "spring",
+                damping: 10,
+                stiffness: 150,
+            },
+        },
+        exit: {
+            y: "100vh",
+            opacity: 0,
+        },
+    };
+
+
+
     return (
-        <Backdrop>
+        <Backdrop onClick={resetGame}>
             <AnimatePresence>
                 <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 0 }}
+                    variants={dropIn}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
                     className="popup"
                 >
                     <div className="game-result">
