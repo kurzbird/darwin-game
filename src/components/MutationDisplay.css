@@ -15,6 +15,7 @@
     border-style: solid;
     border-color: navy;
     background-color: lightgrey;
+    border-radius: 10px;
 
     width: 600px;
     height: 400px;

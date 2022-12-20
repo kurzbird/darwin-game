@@ -8,6 +8,7 @@ import HintBook from "./HintBook";
 import Button from "./Button";
 import "./Game.css";
 import darwin from "../assets/darwin.png";
+import PostGame from "./PostGame";
 
 class Traits {
     constructor(legs, size, horns, hair, camo) {
@@ -127,7 +128,7 @@ const Game = () => {
                 setEndGame(false);
             } else {
                 darwinTexts();
-                setYears(138888);
+                setYears(124860);
                 setCurrentRound(3);
                 setCatastrophe(currentCatastrophe);
                 removeCatastrophe(environmentalCopy, currentCatastrophe);
@@ -145,7 +146,7 @@ const Game = () => {
                 setEndGame(false);
             } else {
                 darwinTexts();
-                setYears(416666);
+                setYears(419868);
                 setCurrentRound(4);
                 setCatastrophe(currentCatastrophe);
                 removeCatastrophe(environmentalCopy, currentCatastrophe);
@@ -163,7 +164,7 @@ const Game = () => {
                 setEndGame(false);
             } else {
                 darwinTexts();
-                setYears(694444);
+                setYears(692853);
                 setCurrentRound(5);
                 setCatastrophe(currentCatastrophe);
                 removeCatastrophe(environmentalCopy, currentCatastrophe);
@@ -371,6 +372,8 @@ const Game = () => {
                 <h2>Are We There, Yeti?</h2>
                 {showStarterDisplay && <h4 className="instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h4>}
                 {!showStarterDisplay && <pre className="instructions">Extra Mutations Remaining: {lifelines}        Current Population Count: {popCount}        Catastrophic Event: {catastrophe}        Year: {years}</pre>}
+
+                {/* <PostGame /> */}
 
                 <div className="display-container">
                     <div className="population-container">
