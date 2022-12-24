@@ -369,10 +369,11 @@ const Game = () => {
     return (
         <section>
             <div className="game-screen">
-                <h2>Are We There, Yeti?</h2>
-                {showStarterDisplay && <h4 className="instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h4>}
-                {!showStarterDisplay && <pre className="instructions">Extra Mutations Remaining: {lifelines}        Current Population Count: {popCount}        Catastrophic Event: {catastrophe}        Year: {years}</pre>}
-
+                <div className="header">
+                    <h2>Are We There, Yeti?</h2>
+                    {showStarterDisplay && <h4 className="instructions">Before we start the game, let's choose our first three yetis. Choose carefully because they will magically double when the game begins! </h4>}
+                    {!showStarterDisplay && <pre className="instructions">Extra Mutations Remaining: {lifelines}        Current Population Count: {popCount}        Catastrophic Event: {catastrophe}        Year: {years}</pre>}
+                </div>
                 {/* <PostGame /> */}
 
                 <div className="display-container">
@@ -389,7 +390,10 @@ const Game = () => {
                     </div>
                 </div>
 
-                <h5>Current Population: {population.map((yeti, i) => <span key={i} style={{ color: "navy" }}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.horns}, {yeti.hair}, {yeti.camo} <br /></span>)} <br /></h5>
+                {/* remove when artwork is in */}
+                <div className="population-descriptions">
+                    <h5 style={{ color: "green" }}>(WIP) Current Population: <br />{population.map((yeti, i) => <span style={{ color: "white" }} key={i}> Yeti {i + 1}: {yeti.legs}, {yeti.size}, {yeti.horns}, {yeti.hair}, {yeti.camo} <br /></span>)} <br /></h5>
+                </div>
 
                 <div className="darwin-text-container">
                     <img src={darwin} alt="darwin" />

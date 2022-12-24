@@ -7,40 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   display: flex;
+  align-items: center;
   flex-direction: column;
   text-align: center;
-  background-color: #6699CC;
+  background-color: black;
   color: white;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-.btn {
-  display: inline-block;
-  background: steelblue;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 15px;
-  font-family: inherit;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn-block {
-  display: block;
-  width: 100%;
 }
