@@ -20,7 +20,7 @@ class Traits {
     }
 };
 
-let population = [];
+// let population = [];
 
 // for all 16 position testing, uncomment below
 // let population = [createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring(), createRandomOffspring()]
@@ -56,6 +56,7 @@ const shuffle = (a) => {
 let shuffled = shuffle(openPositions);
 
 const Game = () => {
+    const [population, setPopulation] = useState([]);
     const [popCount, setPopCount] = useState(3);
     const [currentRound, setCurrentRound] = useState(1);
     const [years, setYears] = useState(1);
@@ -113,7 +114,9 @@ const Game = () => {
         }
 
         if (currentRound === 1 && population.length === 3) {
-            initialRound();
+            // Doubles user's first three choices
+            setPopulation([...population, ...population]);
+            setPopCount(population.length);
             setCurrentRound(2);
             darwinTexts();
             setButtonText("Next Round");
@@ -189,16 +192,6 @@ const Game = () => {
         }
     }
 
-    // Ensures larger starting population before catastrophes
-    function initialRound() {
-        for (let i = 0; i < 3; i++) {
-            population.push(population[i]);
-        }
-        setPopCount(population.length);
-
-        return population;
-    }
-
     // Simulates multiple generations of survival and reproduction rounds
     function simGenerations(catastrophe) {
         for (let i = 0; i < 2; i++) {
@@ -218,10 +211,9 @@ const Game = () => {
         // simulates carrying capacity is a max of 16 yetis
         if (population.length < 16) {
             for (let i = 1; i <= reproductionRate; i++) {
-                population.push(singleOffspring(randomElement(population), randomElement(population)));
+                setPopulation([...population, singleOffspring(randomElement(population), randomElement(population))]);
             }
         }
-        return population;
     }
 
     // defaults to lower index instead of 50/50
@@ -278,7 +270,7 @@ const Game = () => {
 
     const handleSelect = (selection) => {
         if (lifelines > 0) {
-            population.push(selection);
+            setPopulation([...population, selection]);
             setPopCount(population.length);
             setLifelines(lifelines - 1);
             openDisplay();
@@ -287,11 +279,11 @@ const Game = () => {
 
     const handleStarterSelect = (selection) => {
         if (population.length < 3) {
-            population.push(selection);
+            setPopulation([...population, selection]);
             setPopCount(population.length);
         }
 
-        if (population.length === 3) {
+        if (population.length === 2) {
             setShowStarterDisplay(false);
         }
     }
@@ -352,7 +344,7 @@ const Game = () => {
     }
 
     const resetGame = () => {
-        population = [];
+        setPopulation([]);
         setPopCount(0);
         setCurrentRound(1);
         setYears(1);
