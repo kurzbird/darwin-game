@@ -56,8 +56,11 @@ const shuffle = (a) => {
 let shuffled = shuffle(openPositions);
 
 const Game = () => {
-    const [population, setPopulation] = useState([]);
-    const [popCount, setPopCount] = useState(3);
+    const [populationData, setPopulationData] = useState({
+        population: [],
+        popCount: 0,
+    });
+    // const [popCount, setPopCount] = useState(0);
     const [currentRound, setCurrentRound] = useState(1);
     const [years, setYears] = useState(1);
     const [catastrophe, setCatastrophe] = useState("")
@@ -71,6 +74,8 @@ const Game = () => {
     const [shuffledPositions, setShuffledPositions] = useState(shuffled);
     // const [genCount, setGenCount] = useState(0);
 
+    const { population, popCount } = populationData;
+
     // useEffect(() => {
     //     const mapPop = () => {
     //         population.map((yeti, i) => {
@@ -83,13 +88,16 @@ const Game = () => {
     //     [population]
     // );
 
+    // useEffect(() => {
+    // }, [popCount]);
+
     const openHints = () => {
         setShowHints(!showHints);
         setShowMutationDisplay(false);
     }
 
     const openDisplay = () => {
-        if (population.length > 0 && years < 1000000 && currentRound > 2 &&
+        if (popCount > 0 && years < 1000000 && currentRound > 2 &&
             catastrophe !== "VOLCANO" && catastrophe !== "VIRUS" && catastrophe !== "ASTEROID") {
             setShowMutationDisplay(!showMutationDisplay)
             setShowHints(false);
@@ -107,18 +115,23 @@ const Game = () => {
     const playGame = () => {
         const environmentalCopy = [...environmentalChanges];
         const currentCatastrophe = randomElement(environmentalCopy);
+        // console.log('population:', population);
+        // console.log('popCount:', popCount);
 
         if (showHints || showMutationDisplay) {
             setShowHints(false);
             setShowMutationDisplay(false);
         }
 
-        if (currentRound === 1 && population.length === 3) {
+        if (currentRound === 1 && popCount === 3) {
             // Doubles user's first three choices
-            setPopulation([...population, ...population]);
-            setPopCount(population.length);
+            let popCopy = [...population, ...population];
+            let popCountCopy = popCopy.length;
+            setPopulationData({
+                population: popCopy,
+                popCount: popCountCopy
+            });
             setCurrentRound(2);
-            darwinTexts();
             setButtonText("Next Round");
         }
 
@@ -126,11 +139,9 @@ const Game = () => {
             simGenerations(currentCatastrophe);
 
             if (popCount === 0) {
-                darwinTexts();
                 setButtonText("Play Again?");
                 setEndGame(false);
             } else {
-                darwinTexts();
                 setYears(124860);
                 setCurrentRound(3);
                 setCatastrophe(currentCatastrophe);
@@ -144,11 +155,9 @@ const Game = () => {
             simGenerations(catastrophe);
 
             if (popCount === 0) {
-                darwinTexts();
                 setButtonText("Play Again?");
                 setEndGame(false);
             } else {
-                darwinTexts();
                 setYears(419868);
                 setCurrentRound(4);
                 setCatastrophe(currentCatastrophe);
@@ -162,11 +171,9 @@ const Game = () => {
             simGenerations(catastrophe);
 
             if (popCount === 0) {
-                darwinTexts();
                 setButtonText("Play Again?");
                 setEndGame(false);
             } else {
-                darwinTexts();
                 setYears(692853);
                 setCurrentRound(5);
                 setCatastrophe(currentCatastrophe);
@@ -176,20 +183,19 @@ const Game = () => {
             }
         }
 
-        // TO-DO: Add win / loss popup
         if (currentRound === 5) {
             simGenerations(catastrophe);
             setButtonText("Play Again?");
 
             if (popCount === 0) {
                 setEndGame(false);
-                darwinTexts();
             } else {
                 setEndGame(true);
                 setYears(1000000);
-                darwinTexts();
             }
         }
+
+        darwinTexts();
     }
 
     // Simulates multiple generations of survival and reproduction rounds
@@ -202,7 +208,6 @@ const Game = () => {
     function oneGeneration(catastrophe) {
         reproductionRound();
         survivalRound(catastrophe);
-        setPopCount(population.length);
     }
 
     function reproductionRound() {
@@ -211,9 +216,41 @@ const Game = () => {
         // simulates carrying capacity is a max of 16 yetis
         if (population.length < 16) {
             for (let i = 1; i <= reproductionRate; i++) {
-                setPopulation([...population, singleOffspring(randomElement(population), randomElement(population))]);
+                setPopulationData({ population: [...population, singleOffspring(randomElement(population), randomElement(population))] });
             }
         }
+    }
+
+    // should return population with changes
+    // references surivival test
+    function survivalRound(catastrophe) {
+        let popCopy = [...population];
+
+        for (let i = 0; i < popCount; i++) {
+            if (survivalTest(population[i], survivalChance[catastrophe]) === false) {
+                popCopy.splice(i, 1);
+            }
+        }
+        setPopulationData({
+            population: popCopy,
+            popCount: popCopy.length,
+        });
+    }
+
+    // bool on whether or not animal lives
+    // references survival chance
+    function survivalTest(animal, catastropheEvent) {
+        let chance = 0;
+
+        for (const trait in animal) {
+            if (catastropheEvent.hasOwnProperty(trait)) {
+                chance += catastropheEvent[trait][animal[trait]];
+            }
+        }
+
+        // random integer between 1 to 100
+        const rndInteger = Math.floor(Math.random() * 100) + 1;
+        return chance >= rndInteger;
     }
 
     // defaults to lower index instead of 50/50
@@ -239,51 +276,30 @@ const Game = () => {
         );
     }
 
-    // should return population with changes
-    // references surivival test
-    function survivalRound(catastrophe) {
-        for (let i = 0; i < population.length; i++) {
-            if (survivalTest(population[i], survivalChance[catastrophe]) === false) {
-                population.splice(i, 1);
-            }
-        }
-        setCatastrophe(catastrophe);
-
-        return population
-    }
-
-    // bool on whether or not animal lives
-    // references survival chance
-    function survivalTest(animal, catastropheEvent) {
-        let chance = 0;
-
-        for (const trait in animal) {
-            if (catastropheEvent.hasOwnProperty(trait)) {
-                chance += catastropheEvent[trait][animal[trait]];
-            }
-        }
-
-        // random integer between 1 to 100
-        const rndInteger = Math.floor(Math.random() * 100) + 1;
-        return chance >= rndInteger;
-    }
-
     const handleSelect = (selection) => {
+        let popCopy = [...population, selection];
+
         if (lifelines > 0) {
-            setPopulation([...population, selection]);
-            setPopCount(population.length);
+            setPopulationData({
+                population: popCopy,
+                popCount: popCopy.length,
+            });
             setLifelines(lifelines - 1);
             openDisplay();
         }
     }
 
     const handleStarterSelect = (selection) => {
+        let popCopy = [...population, selection];
+
         if (population.length < 3) {
-            setPopulation([...population, selection]);
-            setPopCount(population.length);
+            setPopulationData({
+                population: popCopy,
+                popCount: popCopy.length,
+            });
         }
 
-        if (population.length === 2) {
+        if (popCopy.length === 3) {
             setShowStarterDisplay(false);
         }
     }
@@ -294,7 +310,7 @@ const Game = () => {
 
     // 9 random mutations from existing population
     const mutantGenePool = () => {
-        if (population.length === 0) {
+        if (popCount === 0) {
             return randomMutations;
         } else {
             return [singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population)), singleMutantOffspring(randomElement(population), randomElement(population))]
@@ -344,8 +360,10 @@ const Game = () => {
     }
 
     const resetGame = () => {
-        setPopulation([]);
-        setPopCount(0);
+        setPopulationData({
+            population: [],
+            popCount: 0,
+        });
         setCurrentRound(1);
         setYears(1);
         setCatastrophe("");
