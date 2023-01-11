@@ -200,8 +200,10 @@ const Game = () => {
 
     // Simulates multiple generations of survival and reproduction rounds
     function simGenerations(catastrophe) {
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 8; i++) {
             oneGeneration(catastrophe);
+            // console.log('popCount:', popCount);
+            // console.log('population:', population);
         }
     }
 

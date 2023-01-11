@@ -1,4 +1,4 @@
-# darwin-game
+# Are We There, Yeti?
 <!-- This is an educational game to help students understand how natural selection works. Concept inspired by and based on "Who Wants to Live a Million Years?" -->
 
 # To-Do:
