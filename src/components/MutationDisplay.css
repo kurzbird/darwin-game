@@ -1,16 +1,3 @@
-.mutation-display {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0, 2);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .mutation-display-inner {
     border-style: solid;
     border-color: navy;
@@ -19,20 +6,4 @@
 
     width: 600px;
     height: 400px;
-}
-
-.display-header {
-    color: navy;
-}
-
-.random-mutations {
-    display: grid;
-    grid-template-columns: 33.3% 33.3% 33.3%;
-    grid-template-rows: 33.3% 33.3% 33.3%;
-    grid-column-start: 2;
-    grid-column-end: 5;
-    row-gap: 35px;
-
-    min-width: 100px;
-    min-height: 200px;
 }
