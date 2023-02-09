@@ -33,7 +33,7 @@ const RandomMutations = styled.div`
     min-height: 200px;
 `
 
-function MutationDisplay({ genePool, onSelectMutation, text, refreshGenePool, closeDisplay, starterDisplay }) {
+function MutationDisplay({ genePool, onSelectMutation, text, moreMutations, closeDisplay, starterDisplay }) {
 
     const [selections, setSelections] = useState([])
     const [mutationsToDisplay, setMutationsToDisplay] = useState(genePool)
@@ -43,8 +43,8 @@ function MutationDisplay({ genePool, onSelectMutation, text, refreshGenePool, cl
         setSelections([...selections, selection])
     }
 
-    const moreMutations = () => {
-        setMutationsToDisplay(refreshGenePool)
+    const onMoreMutationsClicked = () => {
+        setMutationsToDisplay(moreMutations)
     }
 
     const containerVariants = {
@@ -84,13 +84,13 @@ function MutationDisplay({ genePool, onSelectMutation, text, refreshGenePool, cl
                     >
                         <DisplayHeader>{text} <br /><br /></DisplayHeader>
                         <RandomMutations>
-                            {mutationsToDisplay.map((Mutation, i) =>
-                                <motion.p onClick={() => selectMutation(Mutation)} key={i} variants={itemVariants}>
-                                    Mutation {i + 1}: {Mutation.legs}, {Mutation.size}, {Mutation.horns}, {Mutation.hair}, {Mutation.camo}
+                            {mutationsToDisplay.map((mutation, i) =>
+                                <motion.p onClick={() => selectMutation(mutation)} key={i} variants={itemVariants}>
+                                    Mutation {i + 1}: {mutation.legs}, {mutation.size}, {mutation.horns}, {mutation.hair}, {mutation.camo}
                                 </motion.p>)}
                         </RandomMutations>
 
-                        <Button text="More Mutations" onClick={moreMutations} />
+                        <Button text="More Mutations" onClick={onMoreMutationsClicked} />
                         {!starterDisplay && <Button text="Close" onClick={closeDisplay} />}
                     </motion.div>
                 </DisplayContainer>
